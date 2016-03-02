@@ -105,9 +105,9 @@ blackScholes.cpp | BS model simulation
 stockData.cpp	 | Basic stock datasets
 testBench.h | Input parameters
 main.cpp | Host code
-ML_cl.h | CL/cl.hpp[^clhpp]
+ML_cl.h | CL/cl.hpp*
 
-[^clhpp]:  ML_cl.h is the OpenCL library header file cl.hpp of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clerror]
+* "ML_cl.h" is the OpenCL library header file <CL/cl.hpp> of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clerror]
 
 [clerror]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/Readme/figures/header_failure.PNG
 
@@ -136,7 +136,10 @@ where $N=(1)\times (2) \times (3)$, each group is assigned with a RNG.
 In each sub-directory, there is a script file called "solution.tcl". Open a terminal, run the command below and then the result of call/put payoff price estimation will be printed on standard IO.
 > sdaccel solution.tcl
 
-Due to some bugs in SDAccel, the kernel wirtten in C++ can't be emulated by CPU so that only hardware emulation is available. However, the hardware emulation usually takes long time. In order to have the results as far as possible, the computation cost $C$ should be as smaller as possible.
+Due to some bugs in SDAccel, the kernel wirtten in C++ can't be emulated by CPU (See figure below) so that only hardware emulation is available. However, the hardware emulation usually takes long time. In order to have the results as far as possible, the computation cost $C$ should be as smaller as possible.
+
+![alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/Readme/figures/CPU_emulation.PNG)
+
 ### Sample Output
 For European option,
 
