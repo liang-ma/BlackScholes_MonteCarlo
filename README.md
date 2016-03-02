@@ -24,10 +24,14 @@ where $\epsilon\sim N(0,1)$, standard normally distribution.
 There are kinds of styles of [options][option], such as European vanilla option or Asian option which is one of the [exotic option][exotic option]. 
 [Call options][Call options] and [put options][put options] are defined reciprocally. Given the basic parameters for an options, expire date and strike price, the call/put payoff price could be estimated. 
 For European vanilla option,
+
 $$P_{Call}=max\{S-K,0\}\\P_{put}=max\{K-S,0\}$$
+
 where $S$ is the stock price at expire date and $K$ is strike price.
 For Asian option,
+
 $$P_{Call}=max\{\frac{1}{T}\int_0^TSdt-K,0\}\\P_{put}=max\{K-\frac{1}{T}\int_0^TSdt,0\}$$
+
 where $T$ is the time period, $S$ is the stock price and$K$ is strike price.
 
 [option]: https://en.wikipedia.org/wiki/Option_style
@@ -48,6 +52,7 @@ The [Mersenne Twister][Mersenne Twister] is an algorithm to generate uniformly d
 #### Box-Muller transform
 [Box Muller transformation][Box Muller transformation] transforms a pair of independent, uniformly distributed random numbers in the interval (0,1) into a pairs of independent, standard, normally distributed random numbers, which are required for simulating Black Scholes model.
 Given independent $U_1$,$U_2 \sim U(0,1)$, 
+
 $$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
 \\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$
 then $Z_1$,$Z_2\sim N(0,1)$ independently.
@@ -105,6 +110,7 @@ ML_cl.h | CL/cl.hpp[^clhpp]
 
 ### Parameters
 The values of the parameters for a given stock and option are list in ***"testBench.h"***. 
+
 Parameters |  information
 :-------- | :---
 T	       |  time period
@@ -114,6 +120,7 @@ S0		   |  initial price of the stock
 K          |  strike price for the option
 kernel_name | string stores the kernel name
 The number of simulation $N$, number of time partition $M$ and all the other parameters related to the simulation are list in ***"blackScholes.cpp"***
+
 Parameters |  information
 :-------- | :---
 MAX_NUM_RNG | (1) number of RNGs running parallelly
@@ -129,6 +136,7 @@ In each sub-directory, there is a script file called "solution.tcl". Open a term
 Due to some bugs in SDAccel, the kernel wirtten in C++ can't be emulated by CPU so that only hardware emulation is available. However, the hardware emulation usually takes long time. In order to have the results as far as possible, the computation cost $C$ should be as smaller as possible.
 ### Sample Output
 For European option,
+
 Input parameters |  value
 :-------- | :---
 T| 1
@@ -146,6 +154,7 @@ call price| 6.048
 put price | 10.65
 
 For Asian option,
+
 Input parameters |  value
 :-------- | :---
 T| 10
@@ -165,6 +174,7 @@ put price | 0.257
 ## Kernel Specification
 ### Top function
 The top function is called "blackEuro" for European option and "blackAsian" for Asian option. 
+
 Parameters | type | information
 :--------: | :---:| :---:
 pCall      | _global data_t* | payoff price of call option
@@ -182,7 +192,9 @@ As introduced before, computational cost $C=MN$ is an important factor that affe
 $$t=\alpha MN+\beta N+\gamma M+\theta$$
 
 Usually $M<<N$, so
+
 $$t\approx(\alpha M+\beta)N$$
+
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
@@ -192,5 +204,4 @@ $$t\approx(\alpha M+\beta)N$$
 [Mersenne Twister]: https://en.wikipedia.org/wiki/Mersenne_Twister
 [Monte Carlo]: https://en.wikipedia.org/wiki/Monte_Carlo_method  
 [Box Muller transformation]: https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
-
 
