@@ -109,7 +109,7 @@ ML_cl.h | CL/cl.hpp[^clhpp]
 
 [^clhpp]:  ML_cl.h is the OpenCL library header file cl.hpp of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![GitHub Logo][clhpp]
 
-[clhpp]: ./figures/header_failure.png
+[clhpp]: /figures/header_failure.png
 
 ### Parameters
 The values of the parameters for a given stock and option are list in ***"testBench.h"***. 
