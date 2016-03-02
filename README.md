@@ -107,9 +107,9 @@ testBench.h | Input parameters
 main.cpp | Host code
 ML_cl.h | CL/cl.hpp[^clhpp]
 
-[^clhpp]:  ML_cl.h is the OpenCL library header file cl.hpp of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clhpp]
+[^clhpp]:  ML_cl.h is the OpenCL library header file cl.hpp of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clerror]
 
-[clhpp]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/Readme/figures/header_failure.PNG
+[clerror]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/Readme/figures/header_failure.PNG
 
 ### Parameters
 The values of the parameters for a given stock and option are list in ***"testBench.h"***. 
