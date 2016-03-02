@@ -55,6 +55,7 @@ Given independent $U_1$,$U_2 \sim U(0,1)$,
 
 $$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
 \\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$
+
 then $Z_1$,$Z_2\sim N(0,1)$ independently.
 
 
@@ -106,7 +107,9 @@ testBench.h | Input parameters
 main.cpp | Host code
 ML_cl.h | CL/cl.hpp[^clhpp]
 
-[^clhpp]:  ML_cl.h is the OpenCL library header file cl.hpp of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. 
+[^clhpp]:  ML_cl.h is the OpenCL library header file cl.hpp of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clhpp]
+
+[clhpp]: ../figures/header_failure.png
 
 ### Parameters
 The values of the parameters for a given stock and option are list in ***"testBench.h"***. 
