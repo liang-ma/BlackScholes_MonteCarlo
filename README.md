@@ -63,7 +63,7 @@ then $Z_1$,$Z_2\sim N(0,1)$ independently.
 The repository is called "blackScholes" in which there are two directories, "blackEuro" and "blackAsian", implementing European option and Asian option respectively. 
 ### Files
 ```
-![blackScholes
+blackScholes
 │   README.md
 └── blackEuro
 │   │   solution.tcl
@@ -97,14 +97,14 @@ The repository is called "blackScholes" in which there are two directories, "bla
 ```
 File/Dir name  |Information
 -------------- | ---
-blackEuro(.cpp)| European options(kernel)
-blackAsian(.cpp)| Asian options(kernel)
+blackEuro(.cpp)| Top function for European options(kernel)
+blackAsian(.cpp)|Top function for  Asian options(kernel)
 solution.tcl   | Script to run sdaccel
-RNG.cpp   | Random Number Generator class
-blackScholes.cpp | BS model simulation
-stockData.cpp	 | Basic stock datasets
-testBench.h | Input parameters
+blackScholes.cpp | BS model simulation, object created in top funtion
+stockData.cpp	 | Basic stock datasets, object created in top function
+RNG.cpp   | Random Number Generator class, objects created in object of blackscholes
 main.cpp | Host code
+testBench.h | Input parameters for kernel
 ML_cl.h | CL/cl.hpp*
 
 * "ML_cl.h" is the OpenCL library header file <CL/cl.hpp> of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clerror]
