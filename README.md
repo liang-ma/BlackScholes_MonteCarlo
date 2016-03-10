@@ -41,6 +41,7 @@ where $T$ is the time period, $S$ is the stock price and$K$ is strike price.
 [Monte Carlo Method][Monte Carlo] is one of the prominent approch to simulate stochastic process such as the stock price in Black-Scholes model, especially for exotic options which is usually not solvable analytically. In this project, Monte Carlo Method is implemented to estimate the payoff price of a given instrument in Black Scholes model. 
 
 Given a time period, it has to be partitioned into M steps according to the style of option. M=1 for European option since the payoff price is independent of its prices before the expired date. At each time point, the stock price is determined by the stock price at previous time point and a normal distributed random number. The expectation of the payoff price is estimated by N parallel independent simulations.
+
 The convergence of the result produced by Monte Carlo method is related to the computational cost $C=MN$. To reach a better convergence, $C$ is usually a very large number, which may reach $10^9$. 
 
 ### Normally Distributed Random Number Generation
@@ -61,39 +62,35 @@ then $Z_1$,$Z_2\sim N(0,1)$ independently.
 
 ## Getting Started Guide
 The repository is called "blackScholes" in which there are two directories, "blackEuro" and "blackAsian", implementing European option and Asian option respectively. 
-### Files
+### Files Tree
 ```
 blackScholes
 │   README.md
-└── blackEuro
-│   │   solution.tcl
+│
+└── headers
 │   │   defTypes.h
-│   │   blackEuro.h
-│   │   blackEuro.cpp
 │   │   RNG.h
 │   │   RNG.cpp
 │   │   stockData.h
 │   │   stockData.cpp
-│   │   testBench.h
-│   │   ML_cl.h
+│   └─  ML_cl.h
+│
+└── blackEuro
+│   │   solution.tcl
+│   │   blackEuro.h
+│   │   blackEuro.cpp
 │   │   main.cpp
 │   │   blackScholes.h
 │   └─  blackScholes.cpp
 │
 └── blackAsian
     │   solution.tcl
-    │   defTypes.h
     │   blackAsian.h
     │   blackAsian.cpp
-    │   RNG.h
-    │   RNG.cpp
-    │   stockData.h
-    │   stockData.cpp
     │   testBench.h
-    │   ML_cl.h
     │   main.cpp
     │   blackScholes.h
-    └─  blackScholes.cpp]
+    └─  blackScholes.cpp
 ```
 File/Dir name  |Information
 -------------- | ---
@@ -128,9 +125,8 @@ Parameters |  information
 :-------- | :---
 MAX_NUM_RNG | (1) number of RNGs running parallelly
 MAX_SAMPLE  | (2) number of simulations of each group
-NUM_SHARE 	| (3) number of paths simulated in each group
 TIME_PAR    |  $M$
-where $N=(1)\times (2) \times (3)$, each group is assigned with a RNG.
+where $N=512*(1)*(2) $ and each parallel group assigned with a RNG runs 512 simulations.
 
 ### Run example
 In each sub-directory, there is a script file called "solution.tcl". Open a terminal, run the command below and then the result of call/put payoff price estimation will be printed on standard IO.
@@ -151,8 +147,8 @@ K 	| 110
 rate    |  5%
 volatility | 20%
 MAX_NUM_RNG | 8
-MAX_SAMPLE  | 2
-NUM_SHARE | 1024
+MAX_SAMPLE  | 4
+TIME_PAR | 1
 
 Output |  value
 :-------- | :--- 
@@ -168,38 +164,31 @@ S0  | 100
 K 	| 105
 rate    |  1%
 volatility | 15%
-MAX_NUM_RNG | 4
-MAX_SAMPLE  | 4
-NUM_SHARE | 256
+MAX_NUM_RNG | 2
+MAX_SAMPLE  | 2
+TIME_PAR	| 128
 
 Output |  value
 :-------- | :--- 
-call price| 24.21
-put price | 0.257
-
-## Kernel Specification
-### Top function
-The top function is called "blackEuro" for European option and "blackAsian" for Asian option. 
-
-Parameters | type | information
-:--------: | :---:| :---:
-pCall      | _global data_t* | payoff price of call option
-pPut       | _global data_t* | payoff price of put option
-timeT	   |  data_t   | time period
-freeRate   |  data_t   | interest rate of riskless asset
-volatility |  data_t   | volatility of the stock
-initPrice  |  data_t   | initial price of the stock
-strikePrice|  data_t   | strike price for the option
-
+call price| 24.86
+put price | 0.33
 
 ## Performance Metrics
-As introduced before, computational cost $C=MN$ is an important factor that affects the both the simulation performance and simulation quality. The time complexity of the algorithm is $O(MN)$. The concrete time for this algorithm is 
 
-$$t=\alpha MN+\beta N+\gamma M+\theta$$
+As introduced before, computational cost $C=MN$ is an important factor that affects the both performance of the simulation and quality of the result. The time complexity of the algorithm is $O(MN)$. The time taken by the algorithm is 
 
-Usually $M<<N$, so
+$$T=\alpha MN+\beta N+\gamma M+\theta$$
 
-$$t\approx(\alpha M+\beta)N$$
+so for each step,
+
+$$t=T/C\approx\alpha$$
+
+Simulations
+Path 
+Generate normal distributed numbers
+Estimate stock price at each time point
+Calculate the payoff 
+Average all results
 
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
