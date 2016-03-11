@@ -64,13 +64,14 @@ then $Z_1$,$Z_2\sim N(0,1)$ independently.
 The repository is called "blackScholes" in which there are two directories, "blackEuro" and "blackAsian", implementing European option and Asian option respectively. 
 ### Files Tree
 ```
-blackScholes
+blackScholes_MonteCarlo
 │   README.md
 │
 └── headers
 │   │   defTypes.h
 │   │   RNG.h
 │   │   RNG.cpp
+│   │   blackScholes.h
 │   │   stockData.h
 │   │   stockData.cpp
 │   └─  ML_cl.h
@@ -79,8 +80,8 @@ blackScholes
 │   │   solution.tcl
 │   │   blackEuro.h
 │   │   blackEuro.cpp
+│   │   testBench.h
 │   │   main.cpp
-│   │   blackScholes.h
 │   └─  blackScholes.cpp
 │
 └── blackAsian
@@ -89,7 +90,6 @@ blackScholes
     │   blackAsian.cpp
     │   testBench.h
     │   main.cpp
-    │   blackScholes.h
     └─  blackScholes.cpp
 ```
 File/Dir name  |Information
