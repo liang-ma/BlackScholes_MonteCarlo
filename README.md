@@ -175,20 +175,11 @@ put price | 0.33
 
 ## Performance Metrics
 
-As introduced before, computational cost $C=MN$ is an important factor that affects the both performance of the simulation and quality of the result. The time complexity of the algorithm is $O(MN)$. The time taken by the algorithm is 
+As introduced before, computational cost $C=MN$ is an important factor that affects the both performance of the simulation and quality of the result. The time complexity of the algorithm is $O(MN)$ so that the performance for an algorithm is estimated by the simulation time per step, which is defined as:
 
-$$T=\alpha MN+\beta N+\gamma M+\theta$$
+$$t=T_s/C$$
 
-so for each step,
-
-$$t=T/C\approx\alpha$$
-
-Simulations
-Path 
-Generate normal distributed numbers
-Estimate stock price at each time point
-Calculate the payoff 
-Average all results
+For the algorithms in this repository, $t\approx1.25ns$ for 8 RNGs implementation. 
 
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
