@@ -104,7 +104,7 @@ main.cpp | Host code
 testBench.h | Input parameters for kernel
 ML_cl.h | CL/cl.hpp*
 
-* "ML_cl.h" is the OpenCL library header file <CL/cl.hpp> of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clerror]
+* "ML_cl.h" is the OpenCL library header file <CL/cl.hpp> of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the version 1.1 causing some issues during compelling. See figure ![alt text][clerror]
 
 [clerror]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/header_failure.PNG
 
