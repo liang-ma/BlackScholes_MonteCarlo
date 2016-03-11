@@ -25,7 +25,7 @@ class blackScholes
 public:
 	blackScholes(stockData);
 	void simulation(data_t *,data_t*);
-	void groupSIM(RNG *, data_t*,data_t*);
+	void sampleSIM(RNG *, data_t*,data_t*);
 };
 
 #endif

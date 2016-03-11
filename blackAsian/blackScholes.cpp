@@ -22,7 +22,7 @@ const int blackScholes::NUM_SHARE=512;
 blackScholes::blackScholes(stockData data):data(data)
 {
 }
-void blackScholes::groupSIM(RNG* mt_rng, data_t *pCall, data_t *pPut)
+void blackScholes::sampleSIM(RNG* mt_rng, data_t *pCall, data_t *pPut)
 {
 
 	const data_t Dt=data.timeT/data_t(TIME_PAR);
@@ -137,6 +137,6 @@ void blackScholes::simulation(data_t *call, data_t *put)
 		seeds[i]=i;
 	}
 	RNG::init_array(mt_rng,seeds,MAX_NUM_RNG);
-	groupSIM(mt_rng,call,put);
+	sampleSIM(mt_rng,call,put);
 
 }
