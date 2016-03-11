@@ -106,7 +106,7 @@ ML_cl.h | CL/cl.hpp*
 
 * "ML_cl.h" is the OpenCL library header file <CL/cl.hpp> of version 1.2.6 instead of the version 1.1 installed by sdaccel due to the pervious version causing some issues during compelling. See figure ![alt text][clerror]
 
-[clerror]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/Readme/figures/header_failure.PNG
+[clerror]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/header_failure.PNG
 
 ### Parameters
 The values of the parameters for a given stock and option are list in ***"testBench.h"***. 
@@ -134,7 +134,7 @@ In each sub-directory, there is a script file called "solution.tcl". Open a term
 
 Due to some bugs in SDAccel, the kernel wirtten in C++ can't be emulated by CPU (See figure below) so that only hardware emulation is available. However, the hardware emulation usually takes long time. In order to have the results as far as possible, the computation cost $C$ should be as smaller as possible.
 
-![alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/Readme/figures/CPU_emulation.PNG)
+![alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
 
 ### Sample Output
 For European option,
