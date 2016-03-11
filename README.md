@@ -64,7 +64,7 @@ then $Z_1$,$Z_2\sim N(0,1)$ independently.
 The repository is called "blackScholes" in which there are two directories, "blackEuro" and "blackAsian", implementing European option and Asian option respectively. 
 ### Files Tree
 ```
-blackScholes
+blackScholes_MonteCarlo
 │   README.md
 │
 └── headers
