@@ -14,18 +14,18 @@
 #ifndef __BLACKSCHOLES__
 #define __BLACKSCHOLES__
 
-#include "../headers/defTypes.h"
-#include "../headers/RNG.h"
-#include "../headers/stockData.h"
+#include "defTypes.h"
+#include "RNG.h"
+#include "stockData.h"
 
 class blackScholes
 {
-	const stockData data;
+	stockData data;
 	static const int NUM_SHARE;
 public:
 	blackScholes(stockData);
-	void simulation(data_t*,data_t*);
-	void sampleSIM(RNG *,data_t*,data_t*);
+	void simulation(data_t *,data_t*);
+	void groupSIM(RNG *, data_t*,data_t*);
 };
 
 #endif

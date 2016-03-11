@@ -71,6 +71,7 @@ blackScholes_MonteCarlo
 │   │   defTypes.h
 │   │   RNG.h
 │   │   RNG.cpp
+│   │   blackScholes.h
 │   │   stockData.h
 │   │   stockData.cpp
 │   └─  ML_cl.h
@@ -81,7 +82,6 @@ blackScholes_MonteCarlo
 │   │   blackEuro.cpp
 │   │   testBench.h
 │   │   main.cpp
-│   │   blackScholes.h
 │   └─  blackScholes.cpp
 │
 └── blackAsian
@@ -90,7 +90,6 @@ blackScholes_MonteCarlo
     │   blackAsian.cpp
     │   testBench.h
     │   main.cpp
-    │   blackScholes.h
     └─  blackScholes.cpp
 ```
 File/Dir name  |Information

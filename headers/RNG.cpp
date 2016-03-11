@@ -49,6 +49,34 @@ void RNG::init(uint seed)
 	}
 }
 
+void RNG::init_array(RNG* rng, uint* seed, const int size)
+{
+	uint tmp[size];
+#pragma HLS ARRAY_PARTITION variable=tmp complete dim=1
+
+	loop_set_seed:for(int i=0;i<size;i++)
+	{
+#pragma HLS UNROLL
+		rng[i].index = 0;
+		rng[i].seed=seed[i];
+		tmp[i]=seed[i];
+	}
+
+
+	loop_seed_init:for (int i = 0; i < RNG_H; i++)
+	{
+		loop_group_init:for(int k=0;k<size;k++)
+		{
+#pragma HLS UNROLL
+			rng[k].mt_e[i]=tmp[k];
+			tmp[k]= RNG_F*(tmp[k]^ (tmp[k] >> (RNG_W - 2))) + i*2+1;
+			rng[k].mt_o[i]=tmp[k];
+			tmp[k]= RNG_F*(tmp[k]^ (tmp[k] >> (RNG_W - 2))) + i*2+2;
+		}
+	}
+}
+
+
 void RNG::extract_number(uint *num1, uint *num2)
 {
 #pragma HLS PIPELINE II=4

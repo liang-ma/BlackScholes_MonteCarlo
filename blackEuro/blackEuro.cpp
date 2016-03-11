@@ -8,7 +8,7 @@
 *----------------------------------------------------------------------------
 */
 #include "blackEuro.h"
-#include "blackScholes.h"
+#include "../headers/blackScholes.h"
 
 
 

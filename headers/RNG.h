@@ -41,7 +41,7 @@ public:
 	int increase(int);
 	int & operator ++();
 
-	static void init_array(RNG*, uint*);
+	static void init_array(RNG*, uint*,const int);
 };
 
 #endif

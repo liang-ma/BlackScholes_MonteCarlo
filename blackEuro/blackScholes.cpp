@@ -12,7 +12,7 @@
 *
 *----------------------------------------------------------------------------
 */
-#include "blackScholes.h"
+#include "../headers/blackScholes.h"
 #define 	MAX_NUM_RNG 	8
 #define 	MAX_SAMPLE 		4
 #define 	TIME_PAR		1
@@ -104,34 +104,8 @@ void blackScholes::simulation(data_t *pCall, data_t *pPut)
 #pragma HLS UNROLL
 		seeds[i]=i;
 	}
-	RNG::init_array(mt_rng,seeds);
+	RNG::init_array(mt_rng,seeds,MAX_NUM_RNG);
 	sampleSIM(mt_rng,pCall,pPut);
 
 }
 
-void RNG::init_array(RNG* rng, uint* seed)
-{
-	uint tmp[MAX_NUM_RNG];
-#pragma HLS ARRAY_PARTITION variable=tmp complete dim=1
-
-	loop_set_seed:for(int i=0;i<MAX_NUM_RNG;i++)
-	{
-#pragma HLS UNROLL
-		rng[i].index = 0;
-		rng[i].seed=seed[i];
-		tmp[i]=seed[i];
-	}
-
-
-	loop_seed_init:for (int i = 0; i < RNG_H; i++)
-	{
-		loop_group_init:for(int k=0;k<MAX_NUM_RNG;k++)
-		{
-#pragma HLS UNROLL
-			rng[k].mt_e[i]=tmp[k];
-			tmp[k]= RNG_F*(tmp[k]^ (tmp[k] >> (RNG_W - 2))) + i*2+1;
-			rng[k].mt_o[i]=tmp[k];
-			tmp[k]= RNG_F*(tmp[k]^ (tmp[k] >> (RNG_W - 2))) + i*2+2;
-		}
-	}
-}
