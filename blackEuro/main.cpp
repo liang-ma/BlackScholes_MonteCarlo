@@ -66,8 +66,8 @@ int main(int argc, char** argv)
 		typedef cl::make_kernel<cl::Buffer,cl::Buffer,float,float,float,float,float> kernelType;
 		kernelType kernelFunctor = kernelType(program, TB::kernel_name);
 
-		cl::Buffer d_call = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float)*h_call.size());
-		cl::Buffer d_put  = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float)*h_put.size());
+		cl::Buffer d_call = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
+		cl::Buffer d_put  = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
 
 		cl::EnqueueArgs enqueueArgs(commandQueue,cl::NDRange(1),cl::NDRange(1));
 		cl::Event event = kernelFunctor(enqueueArgs,
@@ -84,16 +84,8 @@ int main(int argc, char** argv)
 
 		cl::copy(commandQueue, d_call, h_call.begin(), h_call.end());
 		cl::copy(commandQueue, d_put, h_put.begin(), h_put.end());
-		for (vector<float>::iterator it = h_call.begin(); it != h_call.end(); it++)
-		{
-			cout<<"the call price is:"<<*it<<'\t';
-		}
-		cout<<endl;
-		for (vector<float>::iterator it = h_put.begin(); it != h_put.end(); it++)
-		{
-			cout<<"the put price is:"<<*it<<'\t';
-		}
-		cout<<endl;
+		cout<<"the call price is:"<<h_call[0]<<endl;
+		cout<<"the put price is:"<<h_put[0]<<endl;
 	}
 	catch (cl::Error err)
 	{
