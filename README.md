@@ -14,7 +14,7 @@ $$dS=rSdt+\sigma SdW_t$$
 
 where $S$ is the price of the risky asset (usually called stock price), $r$ is the fixed interest rate of the riskless asset, $\sigma$ is the volatility of the stock and $W_t$ is a [Wiener process][Wiener process].
 
-According to Itoh's?Lemma, the analytical solution of this stochastical  differential equation is as follows:
+According to Itoh's� Lemma, the analytical solution of this stochastical  differential equation is as follows:
 
 $$ S_{t+\Delta t}=e^{(r-\frac{1}{2}\sigma^2)\Delta t+\sigma\epsilon\sqrt{\Delta t} } $$
 
@@ -65,29 +65,32 @@ The repository contains two directories, "blackEuro" and "blackAsian", implement
 ### Files Tree
 ```
 blackScholes_MonteCarlo
-鈹?  README.md
-鈹?鈹斺攢鈹€ headers
-鈹?  鈹?  defTypes.h
-鈹?  鈹?  RNG.h
-鈹?  鈹?  RNG.cpp
-鈹?  鈹?  blackScholes.h
-鈹?  鈹?  stockData.h
-鈹?  鈹?  stockData.cpp
-鈹?  鈹斺攢  ML_cl.h
-鈹?鈹斺攢鈹€ blackEuro
-鈹?  鈹?  solution.tcl
-鈹?  鈹?  blackEuro.h
-鈹?  鈹?  blackEuro.cpp
-鈹?  鈹?  testBench.h
-鈹?  鈹?  main.cpp
-鈹?  鈹斺攢  blackScholes.cpp
-鈹?鈹斺攢鈹€ blackAsian
-    鈹?  solution.tcl
-    鈹?  blackAsian.h
-    鈹?  blackAsian.cpp
-    鈹?  testBench.h
-    鈹?  main.cpp
-    鈹斺攢  blackScholes.cpp
+│   README.md
+│
+└── headers
+│   │   defTypes.h
+│   │   RNG.h
+│   │   RNG.cpp
+│   │   blackScholes.h
+│   │   stockData.h
+│   │   stockData.cpp
+│   └─  ML_cl.h
+│
+└── blackEuro
+│   │   solution.tcl
+│   │   blackEuro.h
+│   │   blackEuro.cpp
+│   │   testBench.h
+│   │   main.cpp
+│   └─  blackScholes.cpp
+│
+└── blackAsian
+    │   solution.tcl
+    │   blackAsian.h
+    │   blackAsian.cpp
+    │   testBench.h
+    │   main.cpp
+    └─  blackScholes.cpp
 ```
 File/Dir name  |Information
 -------------- | ---
