@@ -190,7 +190,9 @@ put price | 0.33
 
 As discussed above, the computational cost $C=M \cdot N$ is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is $O(C)$, so that we analyze the performance as the total simulation time per step, which is defined as: $t=T_s/C$
 
+Due to a bug in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available.  However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, NUM_SIMGROUPS has been set to 2 for the Asian option.
 
+[alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
