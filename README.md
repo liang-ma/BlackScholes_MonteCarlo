@@ -212,6 +212,7 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 
 >>> - Generate random numbers
 >>> - Estimate stock price at each time partition point 
+
 >> - Calculate the payoff price 
 > - Count the sum of payoff prices
 > 
