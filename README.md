@@ -149,10 +149,6 @@ In each sub-directory, there is a script file called "solution.tcl". It can be u
 
 The result of the call/put payoff price estimation will be printed on standard IO.
 
-Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost $C$ can be reduced.
-
-![alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
-
 ### Sample Output
 For the European option:
 

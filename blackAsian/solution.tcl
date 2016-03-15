@@ -52,7 +52,6 @@ create_compute_unit -opencl_binary [get_opencl_binary blackAsian1] -kernel [get_
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackAsian1]
 
 # Run the RTL simulation of the application
-puts "Warning: the next simulation will be very long"
 run_emulation -flow hardware -args "blackAsian1.xclbin"
 
 #Compile the application to run on an FPGA
