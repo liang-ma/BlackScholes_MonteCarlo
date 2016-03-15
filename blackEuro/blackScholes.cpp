@@ -28,7 +28,7 @@ void blackScholes::sampleSIM(RNG* mt_rng, data_t* pCall, data_t *pPut)
 {
 	const data_t ratio1=data.strikePrice*expf(-data.freeRate*data.timeT);
 	const data_t ratio2=(data.freeRate-0.5f*data.volatility*data.volatility)*data.timeT;
-	const data_t ratio3=data.volatility*data.volatility*data.timeT'
+	const data_t ratio3=data.volatility*data.volatility*data.timeT;
 	const data_t ratio4=ratio2-logf(data.strikePrice/data.initPrice);
 	data_t sumCall=0,sumPut=0;
 	data_t pCall1[NUM_RNGS][NUM_SIMS],pCall2[NUM_RNGS][NUM_SIMS];
