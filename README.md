@@ -207,6 +207,7 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 **Basic Simulation procedure:** 
 
 >-  **Outer loop** ($N$ iterations in total)
+
 >>- **Inner loop** ($M$ iterations)
 >>> - Generate random numbers
 >>> - Estimate stock price at each time partition point 
