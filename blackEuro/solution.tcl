@@ -1,4 +1,4 @@
-# SDAccel creates a compile run or solution of the application per invocation of the tool
+# SDAccel creates a solution of the application per invocation of the tool
 # Set the name of the solution to be used throughut the current script
 set solution "solution"
 
@@ -12,9 +12,9 @@ add_device -vbnv xilinx:adm-pcie-7v3:1ddr:2.0
 
 # Host Source Files
 add_files "main.cpp"
-add_files "../headers/stockData.cpp"
+add_files "../common/stockData.cpp"
 # Host Compiler Flags
-set_property -name host_cflags -value "-I ../headers -g -Wall -D __CLIANG__ " -objects [current_solution]
+set_property -name host_cflags -value "-I ../common -g -Wall -D __CLIANG__ " -objects [current_solution]
 
 
 # Define a kernel to be compiled by SDAccel
@@ -26,8 +26,8 @@ create_kernel -type c blackEuro
 # User must associate source files to specific kernels using the -kernel option to the add_files command
 add_files -kernel [get_kernels blackEuro] "blackEuro.cpp"
 add_files -kernel [get_kernels blackEuro] "blackScholes.cpp"
-add_files -kernel [get_kernels blackEuro] "../headers/RNG.cpp"
-add_files -kernel [get_kernels blackEuro] "../headers/stockData.cpp"
+add_files -kernel [get_kernels blackEuro] "../common/RNG.cpp"
+add_files -kernel [get_kernels blackEuro] "../common/stockData.cpp"
 
 # Create a binary container. Every SDAccel application has at least 1 binary container to hold the FPGA binary.
 create_opencl_binary blackEuro1
@@ -37,19 +37,20 @@ set_property region OCL_REGION_0 [get_opencl_binary blackEuro1]
 # Kernels are compiled into compute units. There is at least 1 compute unit per kernel in an FPGA binary.
 create_compute_unit -opencl_binary [get_opencl_binary blackEuro1] -kernel [get_kernels blackEuro] -name K1
 
-
-
 # Compile the design for CPU based emulation
+# Currently it does not work due to a bug in SDAccel.
 #compile_emulation -flow cpu -opencl_binary [get_opencl_binary blackEuro]
 
 # Run the design in CPU emulation mode
+# Currently it does not work due to a bug in SDAccel.
 #run_emulation -flow cpu -args "blackEuro.xclbin"
 
 
-# Compile the median filter for CPU emulation
+# Compile the design for RTL simulation
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackEuro1]
 
-# Run the application
+# Run the RTL simulation of the application
+puts "Warning: the next simulation will be very long"
 run_emulation -flow hardware -args "blackEuro1.xclbin"
 
 #Compile the application to run on an FPGA

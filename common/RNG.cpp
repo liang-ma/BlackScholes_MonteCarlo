@@ -2,10 +2,8 @@
 *
 * Author:   Liang Ma (liang-ma@polito.it)
 *
-* In the definition of Box_Muller(), sin/cos is implemented instead of sinf/cosf
-* due to bugs in the synthesizer or the simulator in result of C/RTL co-simulation failing.
-*
-* The member function init_arrary() isn't defined here.
+* In the definition of Box_Muller(), sin/cos are used instead of sinf/cosf
+* due to bugs in the synthesizer (C/RTL co-simulation is failing).
 *
 *----------------------------------------------------------------------------
 */
@@ -28,7 +26,7 @@
 #define lower_mask   0x7FFFFFFF//(1 << R) - 1
 #define upper_mask   0x80000000//~lower_mask
 
-#define PI (data_t)3.14159
+//#define PI (data_t) 3.14159265358979323846
 
 #define MINI_RND (data_t)2.328306e-10
 

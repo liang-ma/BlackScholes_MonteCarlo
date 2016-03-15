@@ -14,18 +14,14 @@
 *----------------------------------------------------------------------------
 */
 
-#include "../headers/stockData.h"
+#include "../common/stockData.h"
 
 namespace TB 
 {
 	const double S0 = 100;
 	const double K = 105;
-	const double BarrierUp = 150;
 	const double rate = 0.1;
 	const double volatility = 0.15;
 	const double T = 10.0;
 	stockData data(T,rate,volatility,S0,K);
-
-	
-
 }

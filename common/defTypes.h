@@ -12,19 +12,22 @@
 #define __DEFTYPES__
 
 #ifdef __CLIANG__
-	#include <cmath>
-	#include <iostream>
-	using namespace std;
-	typedef unsigned int uint;
-	typedef float data_t;
+
+#include <cmath>
+#include <iostream>
+using namespace std;
 
 #else
-	#include "hls_math.h"
-	#include <ap_fixed.h>
-	typedef unsigned int uint;
-	typedef float data_t;
-	//	typedef ap_fixed<64,32,AP_RND,AP_SAT> data_t;
+
+#include "hls_math.h"
+#include <ap_fixed.h>
 
 #endif
+
+typedef unsigned int uint;
+typedef float data_t;
+// This reduces the HW cost a lot, but slows down convergence too much.
+// typedef ap_fixed<64,32,AP_RND,AP_SAT> data_t;
+
 
 #endif
