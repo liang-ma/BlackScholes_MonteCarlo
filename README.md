@@ -222,8 +222,6 @@ As can be analysed, $\alpha$ is related to the latency of the inner loop. Since 
 
 At a frequency no more than 100MHz, two random numbers are produced every two clock cycles considering the pipeline technique. In addition of the unrolling factor $NUM\_RNGS$, the time for each step on FPGA reaches $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz withe $NUM\_RNGS=8$, $t\approx1.25ns$
 
-[alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
-
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
 [Wiener process]: https://en.wikipedia.org/wiki/Wiener_process
