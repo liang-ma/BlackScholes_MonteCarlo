@@ -3,10 +3,12 @@
 * Author:   Liang Ma (liang-ma@polito.it)
 *
 * Host code defining all the parameters and launching the kernel.
+* The only command line argument is the name of the kernel.
 *
-* ML_cl.h is OpenCL library file <CL/cl.hpp>.
+* ML_cl.h is the OpenCL library file <CL/cl.hpp>. Currently the version shipped with SDAccel is buggy.
+
 *
-* Exception option is enabled to make host code simpler.
+* Exception handling is enabled (__CL_ENABLE_EXCEPTIONS) to make host code simpler.
 *
 * The global and local size are set to 1 since the kernel is written in C/C++ instead of OpenCL.
 *
@@ -14,7 +16,11 @@
 */
 
 #define __CL_ENABLE_EXCEPTIONS
-#include "../headers/ML_cl.h"
+
+// This should be used when cl.hpp from SDAccel works.
+// #include "CL/cl.hpp"
+#include "../common/ML_cl.h"
+
 #include "testBench.h"
 
 #include <iostream>
@@ -23,6 +29,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
+	// Get the name of the kernel to be launched.
 	ifstream ifstr(argv[1]);
 	
 	const string programString(istreambuf_iterator<char>(ifstr),
