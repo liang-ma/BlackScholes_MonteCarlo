@@ -79,34 +79,33 @@ The best value for NUM_SIMS can be chosen by maximizing the use of BRAM blocks. 
 ### File Tree
 
 ```
-blackScholes_MonteCarlo
-©¦   
-©¦   README.md
-©¦
-©¸©¤©¤ headers
-©¦   ©¦   defTypes.h
-©¦   ©¦   RNG.h
-©¦   ©¦   RNG.cpp
-©¦   ©¦   blackScholes.h
-©¦   ©¦   stockData.h
-©¦   ©¦   stockData.cpp
-©¦   ©¸©¤  ML_cl.h
-©¦
-©¸©¤©¤ blackEuro
-©¦   ©¦   solution.tcl
-©¦   ©¦   blackEuro.h
-©¦   ©¦   blackEuro.cpp
-©¦   ©¦   testBench.h
-©¦   ©¦   main.cpp
-©¦   ©¸©¤  blackScholes.cpp
-©¦
-©¸©¤©¤ blackAsian
-    ©¦   solution.tcl
-    ©¦   blackAsian.h
-    ©¦   blackAsian.cpp
-    ©¦   testBench.h
-    ©¦   main.cpp
-    ©¸©¤  blackScholes.cpp
+blackScholes
+â”‚   README.md
+â”‚
+â””â”€â”€ headers
+â”‚   â”‚   defTypes.h
+â”‚   â”‚   RNG.h
+â”‚   â”‚   RNG.cpp
+â”‚   â”‚   stockData.h
+â”‚   â”‚   stockData.cpp
+â”‚   â””â”€  ML_cl.h
+â”‚
+â””â”€â”€ blackEuro
+â”‚   â”‚   solution.tcl
+â”‚   â”‚   blackEuro.h
+â”‚   â”‚   blackEuro.cpp
+â”‚   â”‚   main.cpp
+â”‚   â”‚   blackScholes.h
+â”‚   â””â”€  blackScholes.cpp
+â”‚
+â””â”€â”€ blackAsian
+    â”‚   solution.tcl
+    â”‚   blackAsian.h
+    â”‚   blackAsian.cpp
+    â”‚   testBench.h
+    â”‚   main.cpp
+    â”‚   blackScholes.h
+    â””â”€  blackScholes.cpp
 ```
 
 File/Dir name  |Information
