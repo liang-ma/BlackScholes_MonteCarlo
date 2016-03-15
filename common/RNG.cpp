@@ -26,7 +26,7 @@
 #define lower_mask   0x7FFFFFFF//(1 << R) - 1
 #define upper_mask   0x80000000//~lower_mask
 
-//#define PI (data_t) 3.14159265358979323846
+#define PI (data_t) 3.14159265358979323846
 
 #define MINI_RND (data_t)2.328306e-10
 
