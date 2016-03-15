@@ -111,7 +111,6 @@ blackScholes_MonteCarlo
 
 File/Dir name  |Information
 -------------- | ---
-
 blackEuro.cpp  | Top function of the European option kernel
 blackAsian.cpp | Top function of the Asian option kernel
 solution.tcl   | Script to run sdaccel
