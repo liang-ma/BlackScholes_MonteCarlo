@@ -8,7 +8,7 @@
 *----------------------------------------------------------------------------
 */
 #include "blackAsian.h"
-#include "../headers/blackScholes.h"
+#include "../common/blackScholes.h"
 
 
 

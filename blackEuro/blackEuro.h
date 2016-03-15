@@ -8,8 +8,8 @@
 #ifndef __BLACKEURO__
 #define __BLACKEURO__
 
-#include "../headers/defTypes.h"
-#include "../headers/stockData.h"
+#include "../common/defTypes.h"
+#include "../common/stockData.h"
 void blackEuro(data_t *,data_t*,
 		data_t,data_t,data_t,data_t,data_t);
 #endif

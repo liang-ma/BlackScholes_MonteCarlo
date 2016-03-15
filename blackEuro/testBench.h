@@ -14,13 +14,12 @@
 *----------------------------------------------------------------------------
 */
 
-#include "../headers/stockData.h"
+#include "../common/stockData.h"
 
 namespace TB 
 {
 	const double S0 = 100;
 	const double K = 110;
-	const double BarrierUp = 150;
 	const double rate = 0.05;
 	const double volatility = 0.2;
 	const double T = 1.0;

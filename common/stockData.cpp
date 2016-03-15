@@ -6,10 +6,12 @@
 */
 
 #include "stockData.h"
+
 #ifdef __CLIANG__
 #include <iostream>
 using namespace std;
 #endif
+
 stockData::stockData(data_t timeT, data_t freeRate, data_t volatility,
 		data_t initPrice,data_t strikePrice)
 {

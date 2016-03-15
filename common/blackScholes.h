@@ -21,7 +21,10 @@
 class blackScholes
 {
 	stockData data;
-	static const int NUM_SHARE;
+	static const int NUM_RNGS;
+	static const int NUM_SIMS;
+	static const int NUM_SIMGROUPS;
+	static const int NUM_STEPS;
 public:
 	blackScholes(stockData);
 	void simulation(data_t *,data_t*);
