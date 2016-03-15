@@ -206,15 +206,14 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 
 **Basic Simulation procedure:** 
 
->  **Outer loop** ($N$ iterations in total)
+>-  **Outer loop** ($N$ iterations in total)
 >>- **Inner loop** ($M$ iterations)
-> Path estimation 
->> --- Generate random numbers
->> --- Estimate stock price at each time partition point 
-> - Calculate the payoff price 
+>>> - Generate random numbers
+>>> - Estimate stock price at each time partition point 
+>> - Calculate the payoff price 
 > - Count the sum of payoff prices
 > 
->- Estimate the average 
+- Estimate the average 
 
 As can be analysed, $\alpha$ is related to the latency of the inner loop. Since each iteration in the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. One another factor is the mathematical operations. 
 
