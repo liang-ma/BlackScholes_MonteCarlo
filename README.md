@@ -82,7 +82,7 @@ The best value for NUM_SIMS can be chosen by maximizing the use of BRAM blocks. 
 blackScholes
 │   README.md
 │
-└── headers
+└── common
 │   │   defTypes.h
 │   │   RNG.h
 │   │   RNG.cpp
