@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 		cl::CommandQueue commandQueue(context, devices[0]);
 		
 		typedef cl::make_kernel<cl::Buffer,cl::Buffer,float,float,float,float,float> kernelType;
-		kernelType kernelFunctor = kernelType(program, TB::kernel_name);
+		kernelType kernelFunctor = kernelType(program, "blackEuro");
 
 		cl::Buffer d_call = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
 		cl::Buffer d_put  = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));

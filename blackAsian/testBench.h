@@ -26,7 +26,6 @@ namespace TB
 	const double T = 10.0;
 	stockData data(T,rate,volatility,S0,K);
 
-	char kernel_name[] = "blackAsian";
 	
 
 }
