@@ -34,13 +34,7 @@ int main(int argc, char** argv)
 		vector<cl::Platform> platforms;
 		cl::Platform::get(&platforms);
 
-		cl_context_properties properties[] =
-		{
-				CL_CONTEXT_PLATFORM,
-				(cl_context_properties)(platforms[0])(),
-				0
-		};
-		cl::Context context(CL_DEVICE_TYPE_ACCELERATOR, properties);
+		cl::Context context(CL_DEVICE_TYPE_ACCELERATOR);
 		vector<cl::Device> devices=context.getInfo<CL_CONTEXT_DEVICES>();
 
 		cl::Program::Binaries binaries(1, make_pair(programString.c_str(), programString.length()));
