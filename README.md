@@ -69,8 +69,7 @@ then $Z_1$,$Z_2\sim N(0,1)$, also independent.
 ## Getting Started 
 
 The repository contains two directories, "blackEuro" and "blackAsian", implementing the European option and the Asian option respectively. They are written using C++, rather than OpenCL, because there is no workgroup-level memory that is worth sharing. All Monte Carlo simulations are independent.
-In this implementation, since the complexity of the rando number generation process is simpler than the complexity of the Monte Carlo simulation step, NUM_RNGS random number generators feed NUM_SIMS simulation groups each. Both
-iterations over NUM_RNGS and NUM_SIMS are fully unrolled (as if they were executed by an independent work item in a work group).
+In this implementation, since the complexity of the random number generation process is simpler than the complexity of the Monte Carlo simulation step, 1 random number generator feed NUM_SIMS simulation groups each by utilizing BRAM storing the medium results. The iterations over NUM_RNGS are fully unrolled (as if they were executed by an independent work item in a work group) and the iterations over NUM_SIMS are pipelined. 
 These two parameters should be chosen to fully utilize the resources on an FPGA.
 In order to ensure that enough simulations of a given stock are performed, NUM_SIMGROUPS can be then tuned.
 
@@ -81,6 +80,7 @@ The best value for NUM_SIMS can be chosen by maximizing the use of BRAM blocks. 
 
 ```
 blackScholes_MonteCarlo
+©¦   
 ©¦   README.md
 ©¦
 ©¸©¤©¤ headers
@@ -117,9 +117,8 @@ solution.tcl   | Script to run sdaccel
 blackScholes.h | It declares the blackScholes object instantiated in the top functions (same methods for European and Asian option).
 blackScholes.cpp | It defines the blackScholes object instantiated in the top functions. Note that the definitions of the object methods are different between the European And Asian options.
 stockData.cpp	 | Basic stock datasets. It defines an object instantiated in the top functions
-RNG.cpp   | Random Number Generator class. It defines an object instantiated in
-the blackSholes objects.
-main.cpp | Host code calling the kernels
+RNG.cpp   | Random Number Generator class. It defines an object instantiated in the blackSholes objects.
+main.cpp  |  Host code calling the kernels
 testBench.h | Input parameters for the kernels
 ML_cl.h | CL/cl.hpp for OpenCL 1.2.6
 
@@ -147,7 +146,7 @@ NUM_STEPS    | number of time steps ($M$)
 NUM_RNGS | number of RNGs running in parallel, proportional to the area cost
 NUM_SIMS   | number of simulations running in parallel for a given RNG
 NUM_SIMGROUPS  | number of simulation groups (each with $NUM\_RNG \cdot NUM\_SIMS simulations) running in pipeline, proportional to the execution time
-The area cost is proposrtional to $NUM\_RNG \cdot NUM\_SIMS$.
+The area cost is proposrtional to $NUM\_RNG $.
 
 ### How to run an example
 In each sub-directory, there is a script file called "solution.tcl". It can be used as follows:
@@ -203,6 +202,23 @@ put price | 0.33
 
 As discussed above, the computational cost $C=M \cdot N$ is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is $O(C)$, so that we analyze the performance as the total simulation time per step, which is defined as: $t=T_s/C$
 
+The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so for each step, $$t=T/C\approx\alpha$$ 
+
+**Basic Simulation procedure:** 
+
+>  **Outer loop** ($N$ iterations in total)
+>>- **Inner loop** ($M$ iterations)
+> Path estimation 
+>> --- Generate random numbers
+>> --- Estimate stock price at each time partition point 
+> - Calculate the payoff price 
+> - Count the sum of payoff prices
+> 
+>- Estimate the average 
+
+As can be analysed, $\alpha$ is related to the latency of the inner loop. Since each iteration in the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. One another factor is the mathematical operations. 
+
+At a frequency no more than 100MHz, two random numbers are produced every two clock cycles considering the pipeline technique. In addition of the unrolling factor $NUM\_RNGS$, the time for each step on FPGA reaches $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz withe $NUM\_RNGS=8$, $t\approx1.25ns$
 
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
