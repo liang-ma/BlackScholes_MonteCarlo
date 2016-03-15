@@ -208,8 +208,6 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 
 >  **Outer loop** ($N$ iterations in total)
 >>- **Inner loop** ($M$ iterations)
-
-> Path estimation 
 >> --- Generate random numbers
 >> --- Estimate stock price at each time partition point 
 > - Calculate the payoff price 
