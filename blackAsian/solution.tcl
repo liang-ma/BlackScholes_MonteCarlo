@@ -47,12 +47,13 @@ create_compute_unit -opencl_binary [get_opencl_binary blackAsian1] -kernel [get_
 # Currently it does not work due to a bug in SDAccel.
 #run_emulation -flow cpu -args "blackAsian.xclbin"
 
+# Compute the resource estimate for the application
+report_estimate
 
 # Compile the median filter for CPU emulation
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackAsian1]
 
 # Run the RTL simulation of the application
-puts "Warning: the next simulation will be very long"
 run_emulation -flow hardware -args "blackAsian1.xclbin"
 
 #Compile the application to run on an FPGA
@@ -65,7 +66,5 @@ run_emulation -flow hardware -args "blackAsian1.xclbin"
 #run_system -args "blackAsian1.xclbin"
 
 
-# Compute the resource estimate for the application
-report_estimate
 
 

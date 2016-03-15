@@ -155,8 +155,7 @@ In each sub-directory, there is a script file called "solution.tcl". It can be u
 
 The result of the call/put payoff price estimation will be printed on standard IO.
 
-Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost $C$ can be reduced.
-
+Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost $C$ can be reduced. For instance, NUM_SIMGROUPS has been set to 2 for the Asian option.
 
 ![alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
 
@@ -202,6 +201,7 @@ put price | 0.33
 
 As discussed above, the computational cost $C=M \cdot N$ is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is $O(C)$, so that we analyze the performance as the total simulation time per step, which is defined as: $t=T_s/C$
 
+
 The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so for each step, $$t=T/C\approx\alpha$$ 
 
 **Basic Simulation procedure:** 
@@ -220,6 +220,7 @@ As can be analysed, $\alpha$ is related to the latency of the inner loop. Since 
 
 At a frequency no more than 100MHz, two random numbers are produced every two clock cycles considering the pipeline technique. In addition of the unrolling factor $NUM\_RNGS$, the time for each step on FPGA reaches $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz withe $NUM\_RNGS=8$, $t\approx1.25ns$
 
+[alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	

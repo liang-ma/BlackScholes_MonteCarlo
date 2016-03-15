@@ -16,7 +16,11 @@
 #include "../common/blackScholes.h"
 
 const int blackScholes::NUM_RNGS=2;
+#ifdef LONG_SIMULATION
 const int blackScholes::NUM_SIMS=512;
+#else
+const int blackScholes::NUM_SIMS=64;
+#endif
 const int blackScholes::NUM_SIMGROUPS=2;
 const int blackScholes::NUM_STEPS=128;
 
