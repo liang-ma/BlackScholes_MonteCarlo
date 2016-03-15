@@ -207,9 +207,12 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 **Basic Simulation procedure:** 
 
 >-  **Outer loop** ($N$ iterations in total)
+
 >>- **Inner loop** ($M$ iterations)
+
 >>> - Generate random numbers
 >>> - Estimate stock price at each time partition point 
+
 >> - Calculate the payoff price 
 > - Count the sum of payoff prices
 > 
@@ -218,8 +221,6 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 As can be analysed, $\alpha$ is related to the latency of the inner loop. Since each iteration in the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. One another factor is the mathematical operations. 
 
 At a frequency no more than 100MHz, two random numbers are produced every two clock cycles considering the pipeline technique. In addition of the unrolling factor $NUM\_RNGS$, the time for each step on FPGA reaches $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz withe $NUM\_RNGS=8$, $t\approx1.25ns$
-
-[alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
