@@ -42,9 +42,9 @@ where T is the time period (between now and the option expiration date) , S is t
 ### The Monte Carlo Method
 The [Monte Carlo Method][Monte Carlo] is one of the most widely used approaches to simulate stochastic processes, like a stock price modeled with Black-Scholes. This is especially true for exotic options, which are usually not solvable analytically. In this project, the Monte Carlo Method is used to estimate the payoff price of a given instrument using the Black Scholes model. 
 
-The given time period has to be partitioned into !M steps according to the style of the option. ![$M=1$] for a European option, since the payoff price is independent of the price before the expiration date. At each time point of a Monte Carlo simulation of this kind, the stock price is determined by the stock price at the previous time point and by a normally distributed random number. The expectation of the payoff price can thus be estimated by !N parallel independent simulations.
+The given time period has to be partitioned into M steps according to the style of the option. M=1 for a European option, since the payoff price is independent of the price before the expiration date. At each time point of a Monte Carlo simulation of this kind, the stock price is determined by the stock price at the previous time point and by a normally distributed random number. The expectation of the payoff price can thus be estimated by N parallel independent simulations.
 
-The convergence of the result produced by the Monte Carlo method is ensured in this case by running a very large number of simulation steps, namely ![$C=M \cdot N$] (which should be a very large number, e.g. $10^9$). 
+The convergence of the result produced by the Monte Carlo method is ensured in this case by running a very large number of simulation steps, namely ![$C=M \cdot N$] (which should be a very large number, e.g. ![$10^9$]). 
 Other convergence criteria (e.g. checking the difference between successive iterations) could be added.
 
 
@@ -53,17 +53,17 @@ A key aspect of the quality of the results of the Monte Carlo method is the qual
 
 #### Mersenne-Twister
 
-The [Mersenne Twister][Mersenne Twister] is an algorithm to generate uniformly distributed pseudo random numbers. Its very long periodicity $2^{19937}-1$ makes it a suitable algorithm for our application, since as discussed above the Monte Carlo method requires millions of random numbers.
+The [Mersenne Twister][Mersenne Twister] is an algorithm to generate uniformly distributed pseudo random numbers. Its very long periodicity ![$2^{19937}-1]$ makes it a suitable algorithm for our application, since as discussed above the Monte Carlo method requires millions of random numbers.
 
 
 #### Box-Muller transform
 The [Box Muller transformation][Box Muller transformation] transforms a pair of independent, uniformly distributed random numbers in the interval (0,1) into a pair of independent normally distributed random numbers, which are required for simulating the Black Scholes model.
-Given two independent $U_1$,$U_2 \sim U(0,1)$, 
+Given two independent ![$U_1$,$U_2 \sim U(0,1)$], 
 
-$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
-\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$
+![$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
+\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]
 
-then $Z_1$,$Z_2\sim N(0,1)$, also independent.
+then ![$Z_1$,$Z_2\sim N(0,1)$], also independent.
 
 
 
@@ -147,7 +147,7 @@ Parameter |  information
 NUM_STEPS    | number of time steps (M)
 NUM_RNGS | number of RNGs running in parallel, proportional to the area cost
 NUM_SIMS   | number of simulations running in parallel for a given RNG (512 optimizes BRAM usage)
-NUM_SIMGROUPS  | number of simulation groups (each with ![$NUM\_RNG \cdot NUM\_SIMS] simulations) running in pipeline, proportional to the execution time
+NUM_SIMGROUPS  | number of simulation groups (each with ![$NUM\_RNG \cdot NUM\_SIMS$] simulations) running in pipeline, proportional to the execution time
 The area cost is proposrtional to NUM_RNG.
 
 ### How to run an example
@@ -241,15 +241,15 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [$\sigma$]:figures/equ_bs.PNG
 [$W_t$]:figures/wt.PNG
 [$C=M \cdot N$]:figures/cmd.PNG
-
 [$10^9$]:figures/109.PNG
 [$2^{19937}-1$]:figures/19937.PNG
 [$U_1$,$U_2 \sim U(0,1)$]:figures/u12.PNG
 [$Z_1$,$Z_2\sim N(0,1)$]:figures/z12.PNG
 [$t\approx1.25ns$]:figures/t125.PNG
 [$NUM\_RNG \cdot NUM\_SIMS$]:figures/nn.PNG
-
-[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2) \ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.pgn
+[$t=T_s/C$]:figures/tstep.PNG
+[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
+\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.pgn
 [$t\approx\frac{clock\ period}{NUM\_RNGS}$]:/figures/tpro.PNG
 [$$t=T/C\approx\alpha$$]:/figures/tmall.PNG
 [$$dS=rSdt+\sigma SdW_t$$]:/figures/equ_bs.PNG
