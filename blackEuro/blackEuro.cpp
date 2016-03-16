@@ -7,9 +7,10 @@
 *
 *----------------------------------------------------------------------------
 */
-#include "blackEuro.h"
-#include "../common/blackScholes.h"
 
+#include "../common/blackScholes.h"
+#include "../common/defTypes.h"
+#include "../common/stockData.h"
 
 
 void blackEuro(data_t *pCall, data_t *pPut,   // call price and put price

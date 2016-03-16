@@ -7,7 +7,8 @@
 *
 *----------------------------------------------------------------------------
 */
-#include "blackAsian.h"
+#include "../common/defTypes.h"
+#include "../common/stockData.h"
 #include "../common/blackScholes.h"
 
 

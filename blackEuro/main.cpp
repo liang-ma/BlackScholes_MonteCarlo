@@ -11,6 +11,15 @@
 *
 * The global and local size are set to 1 since the kernel is written in C/C++ instead of OpenCL.
 *
+* Several input parameters for the simulation are defined in namespace Paras.
+*
+* S0:		stock price at time 0
+* K:		strike price
+* rate:		interest rate
+* volatility:		volatility of stock
+* T:		time period of the option
+* kernel_name:	the kernel name
+*
 *----------------------------------------------------------------------------
 */
 
@@ -23,14 +32,24 @@
 #include "../common/ML_cl.h"
 #endif
 
-#include "testBench.h"
-
+#include "../common/stockData.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
 
+namespace Paras 
+{
+	const double S0 = 100;
+	const double K = 110;
+	const double rate = 0.05;
+	const double volatility = 0.2;
+	const double T = 1.0;
+	stockData data(T,rate,volatility,S0,K);
+}
+
 int main(int argc, char** argv)
 {
+    
 	// Get the name of the kernel to be launched.
 	ifstream ifstr(argv[1]);
 	
@@ -57,7 +76,7 @@ int main(int argc, char** argv)
 			if (err.err() == CL_BUILD_PROGRAM_FAILURE)
 			{
 				string info;
-				program.getBuildInfo(devices[0],CL_PROGRAM_BUILD_LOG, &info);
+				program.geParasuildInfo(devices[0],CL_PROGRAM_BUILD_LOG, &info);
 				cout << info << endl;
 				return EXIT_FAILURE;
 			}
@@ -75,11 +94,11 @@ int main(int argc, char** argv)
 		cl::EnqueueArgs enqueueArgs(commandQueue,cl::NDRange(1),cl::NDRange(1));
 		cl::Event event = kernelFunctor(enqueueArgs,
 						d_call,d_put,
-						TB::data.timeT,
-						TB::data.freeRate,
-				 		TB::data.volatility,
-						TB::data.initPrice,
-						TB::data.strikePrice
+						Paras::data.timeT,
+						Paras::data.freeRate,
+				 		Paras::data.volatility,
+						Paras::data.initPrice,
+						Paras::data.strikePrice
 						);
 
 		commandQueue.finish();
