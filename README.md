@@ -60,8 +60,7 @@ The [Mersenne Twister][Mersenne Twister] is an algorithm to generate uniformly d
 The [Box Muller transformation][Box Muller transformation] transforms a pair of independent, uniformly distributed random numbers in the interval (0,1) into a pair of independent normally distributed random numbers, which are required for simulating the Black Scholes model.
 Given two independent ![$U_1$,$U_2 \sim U(0,1)$], 
 
-![$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
-\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]
+![$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)\\Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]
 
 then ![$Z_1$,$Z_2\sim N(0,1)$], also independent.
 
@@ -248,8 +247,7 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [$t\approx1.25ns$]:figures/t125.PNG
 [$NUM\_RNG \cdot NUM\_SIMS$]:figures/nn.PNG
 [$t=T_s/C$]:figures/tstep.PNG
-[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
-\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.png
+[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)\\Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.png
 [$t\approx\frac{clock\ period}{NUM\_RNGS}$]:/figures/tpro.PNG
 [$$t=T/C\approx\alpha$$]:/figures/tmall.PNG
 [$$dS=rSdt+\sigma SdW_t$$]:/figures/equ_bs.PNG
