@@ -53,7 +53,7 @@ A key aspect of the quality of the results of the Monte Carlo method is the qual
 
 #### Mersenne-Twister
 
-The [Mersenne Twister][Mersenne Twister] is an algorithm to generate uniformly distributed pseudo random numbers. Its very long periodicity ![$2^{19937}-1]$ makes it a suitable algorithm for our application, since as discussed above the Monte Carlo method requires millions of random numbers.
+The [Mersenne Twister][Mersenne Twister] is an algorithm to generate uniformly distributed pseudo random numbers. Its very long periodicity ![$2^{19937}-1$] makes it a suitable algorithm for our application, since as discussed above the Monte Carlo method requires millions of random numbers.
 
 
 #### Box-Muller transform
@@ -249,7 +249,7 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [$NUM\_RNG \cdot NUM\_SIMS$]:figures/nn.PNG
 [$t=T_s/C$]:figures/tstep.PNG
 [$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)
-\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.pgn
+\\ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.png
 [$t\approx\frac{clock\ period}{NUM\_RNGS}$]:/figures/tpro.PNG
 [$$t=T/C\approx\alpha$$]:/figures/tmall.PNG
 [$$dS=rSdt+\sigma SdW_t$$]:/figures/equ_bs.PNG
