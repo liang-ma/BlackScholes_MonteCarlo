@@ -76,7 +76,7 @@ In this implementation, since the complexity of the random number generation pro
 These two parameters should be chosen to fully utilize the resources on an FPGA.
 In order to ensure that enough simulations of a given stock are performed, NUM_SIMGROUPS can then be tuned.
 
-The total number of simulations is $N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$ and each simulation group assigned to a given RNG runs NUM_SIMS simulations. 
+The total number of simulations is ![$N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$] and each simulation group assigned to a given RNG runs NUM_SIMS simulations. 
 The best value for NUM_SIMS can be chosen by maximizing the use of BRAM blocks.  By default it is 512 (which fills one BRAM block with 512 float values).
 
 ### File Tree
@@ -140,15 +140,15 @@ S0		   |  initial price of the stock
 K          |  strike price for the option
 kernel_name | the kernel name, to be passed to the OpenCL runtime
 
-The number of simulations $N$, and the number of time partitions $M$, as well as all the other parameters related to the simulation, are listed in ***"blackScholes.cpp"***
+The number of simulations $N$, and the number of time partitions M, as well as all the other parameters related to the simulation, are listed in ***"blackScholes.cpp"***
 
 Parameter |  information
 :-------- | :---
-NUM_STEPS    | number of time steps ($M$)
+NUM_STEPS    | number of time steps (M)
 NUM_RNGS | number of RNGs running in parallel, proportional to the area cost
 NUM_SIMS   | number of simulations running in parallel for a given RNG (512 optimizes BRAM usage)
 NUM_SIMGROUPS  | number of simulation groups (each with $NUM\_RNG \cdot NUM\_SIMS simulations) running in pipeline, proportional to the execution time
-The area cost is proposrtional to ![$NUM\_RNG$].
+The area cost is proposrtional to NUM_RNG.
 
 ### How to run an example
 In each sub-directory, there is a script file called "solution.tcl". It can be used as follows:
@@ -157,7 +157,7 @@ In each sub-directory, there is a script file called "solution.tcl". It can be u
 
 The result of the call/put payoff price estimation will be printed on standard IO.
 
-Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost $C$ can be reduced. For instance, NUM_SIMGROUPS has been set to 2 for the Asian option.
+Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost C can be reduced. For instance, NUM_SIMGROUPS has been set to 2 for the Asian option.
 
 ![alt text](/figures/CPU_emulation.PNG)
 
@@ -224,7 +224,7 @@ The time taken by the algorithm is ![$$T=\alpha M \cdot N+\beta N+\gamma M+\thet
 
 We can see that [$\alpha$] is related to the latency of the inner loop. Since each iteration of the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. The other factor are the mathematical operations of one Black Sholes step. 
 
-At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor NUM_RNGS, the time for each step on the FPGA $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz with $NUM\_RNGS=8$, $t\approx1.25ns$
+At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor NUM_RNGS, the time for each step on the FPGA ![$t\approx\frac{clock\ period}{NUM\_RNGS}$]. For instance, at the frequency of 100MHz with NUM_RNGS=8, ![$t\approx1.25ns$]
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
@@ -237,17 +237,17 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 
 
 [$\alpha$]:/figures/alpha.PNG
-
+[$N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$]::figures/N.PNG
 [$\sigma$]:figures/equ_bs.PNG
-[$W_t$]
-[$C=M \cdot N$]
+[$W_t$]:figures/wt.PNG
+[$C=M \cdot N$]:figures/cmd.PNG
 [$10^9$]
 [$2^{19937}-1$]
 [$U_1$,$U_2 \sim U(0,1)$]
 [$Z_1$,$Z_2\sim N(0,1)$]
-[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2) \ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]
-[$t\approx\frac{clock\ period}{NUM\_RNGS}$]
-[$$t=T/C\approx\alpha$$]
+[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2) \ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.pgn
+[$t\approx\frac{clock\ period}{NUM\_RNGS}$]:/figures/tpro.PNG
+[$$t=T/C\approx\alpha$$]:/figures/tmall.PNG
 [$$dS=rSdt+\sigma SdW_t$$]:/figures/equ_bs.PNG
 [$$ S_{t+\Delta t}=e^{(r-\frac{1}{2}\sigma^2)\Delta t+\sigma\epsilon\sqrt{\Delta t} } $$]:/figures/ito.PNG
 [$\epsilon\sim N(0,1)$]:/figures/eps.PNG
