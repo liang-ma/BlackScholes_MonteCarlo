@@ -239,7 +239,7 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [$N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$]:figures/N.PNG
 [$\sigma$]:figures/equ_bs.PNG
 [$W_t$]:figures/wt.PNG
-[$C=M \cdot N$]:figures/cmd.PNG
+[$C=M \cdot N$]:figures/cmn.PNG
 [$10^9$]:figures/109.PNG
 [$2^{19937}-1$]:figures/19937.PNG
 [$U_1$,$U_2 \sim U(0,1)$]:figures/u12.PNG
@@ -247,7 +247,7 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [$t\approx1.25ns$]:figures/t125.PNG
 [$NUM\_RNG \cdot NUM\_SIMS$]:figures/nn.PNG
 [$t=T_s/C$]:figures/tstep.PNG
-[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)\\Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.png
+[$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2)\\Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.PNG
 [$t\approx\frac{clock\ period}{NUM\_RNGS}$]:/figures/tpro.PNG
 [$$t=T/C\approx\alpha$$]:/figures/tmall.PNG
 [$$dS=rSdt+\sigma SdW_t$$]:/figures/equ_bs.PNG
