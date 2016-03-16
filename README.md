@@ -12,7 +12,7 @@ The geometric Brownian behaviour of the price of the risky asset is described by
 
 ![$$dS=rSdt+\sigma SdW_t$$]
 
-where S is the price of the risky asset (usually called stock price), r is the fixed interest rate of the riskless asset, $\sigma$ is the volatility of the stock and ![$W_t$] is a [Wiener process][Wiener process].
+where S is the price of the risky asset (usually called stock price), r is the fixed interest rate of the riskless asset, ![$\sigma$] is the volatility of the stock and ![$W_t$] is a [Wiener process][Wiener process].
 
 
 According to Ito's Lemma, the analytical solution of this stochastic  differential equation is as follows:
@@ -29,12 +29,12 @@ For the European vanilla option, we have:
 
 ![$$P_{Call}=max\{S-K,0\}\\P_{put}=max\{K-S,0\}$$]
 
-where S is the stock price at the expiration date (estimated by the model above) and $K$ is the strike price.
+where S is the stock price at the expiration date (estimated by the model above) and K is the strike price.
 For the Asian option, we have:
 
 ![$$P_{Call}=max\{\frac{1}{T}\int_0^TSdt-K,0\}\\P_{put}=max\{K-\frac{1}{T}\int_0^TSdt,0\}$$]
 
-where ![$T$] is the time period (between now and the option expiration date) , S is the stock price at the expiration date, and $K$ is the strike price.
+where T is the time period (between now and the option expiration date) , S is the stock price at the expiration date, and K is the strike price.
 
 [option]: https://en.wikipedia.org/wiki/Option_style
 [exotic option]: https://en.wikipedia.org/wiki/Exotic_option
@@ -140,14 +140,14 @@ S0		   |  initial price of the stock
 K          |  strike price for the option
 kernel_name | the kernel name, to be passed to the OpenCL runtime
 
-The number of simulations $N$, and the number of time partitions M, as well as all the other parameters related to the simulation, are listed in ***"blackScholes.cpp"***
+The number of simulations N, and the number of time partitions M, as well as all the other parameters related to the simulation, are listed in ***"blackScholes.cpp"***
 
 Parameter |  information
 :-------- | :---
 NUM_STEPS    | number of time steps (M)
 NUM_RNGS | number of RNGs running in parallel, proportional to the area cost
 NUM_SIMS   | number of simulations running in parallel for a given RNG (512 optimizes BRAM usage)
-NUM_SIMGROUPS  | number of simulation groups (each with $NUM\_RNG \cdot NUM\_SIMS simulations) running in pipeline, proportional to the execution time
+NUM_SIMGROUPS  | number of simulation groups (each with ![$NUM\_RNG \cdot NUM\_SIMS] simulations) running in pipeline, proportional to the execution time
 The area cost is proposrtional to NUM_RNG.
 
 ### How to run an example
@@ -203,7 +203,7 @@ put price | 0.33
 ## Performance Metrics
 
 
-As discussed above, the computational cost $C=M \cdot N$ is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is $O(C)$, so that we analyze the performance of our implementation as the total simulation time (number of clock cycles times clock period) per step: $t=T_s/C$
+As discussed above, the computational cost ![$C=M \cdot N$] is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is O(C), so that we analyze the performance of our implementation as the total simulation time (number of clock cycles times clock period) per step: ![$t=T_s/C$]
 
 
 The time taken by the algorithm is ![$$T=\alpha M \cdot N+\beta N+\gamma M+\theta$$] so for each step, ![$$t=T/C\approx\alpha$$] 
@@ -222,7 +222,7 @@ The time taken by the algorithm is ![$$T=\alpha M \cdot N+\beta N+\gamma M+\thet
 > 
 - Estimate the average 
 
-We can see that [$\alpha$] is related to the latency of the inner loop. Since each iteration of the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. The other factor are the mathematical operations of one Black Sholes step. 
+We can see that ![$\alpha$] is related to the latency of the inner loop. Since each iteration of the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. The other factor are the mathematical operations of one Black Sholes step. 
 
 At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor NUM_RNGS, the time for each step on the FPGA ![$t\approx\frac{clock\ period}{NUM\_RNGS}$]. For instance, at the frequency of 100MHz with NUM_RNGS=8, ![$t\approx1.25ns$]
 
@@ -237,14 +237,18 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 
 
 [$\alpha$]:/figures/alpha.PNG
-[$N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$]::figures/N.PNG
+[$N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$]:figures/N.PNG
 [$\sigma$]:figures/equ_bs.PNG
 [$W_t$]:figures/wt.PNG
 [$C=M \cdot N$]:figures/cmd.PNG
-[$10^9$]
-[$2^{19937}-1$]
-[$U_1$,$U_2 \sim U(0,1)$]
-[$Z_1$,$Z_2\sim N(0,1)$]
+
+[$10^9$]:figures/109.PNG
+[$2^{19937}-1$]:figures/19937.PNG
+[$U_1$,$U_2 \sim U(0,1)$]:figures/u12.PNG
+[$Z_1$,$Z_2\sim N(0,1)$]:figures/z12.PNG
+[$t\approx1.25ns$]:figures/t125.PNG
+[$NUM\_RNG \cdot NUM\_SIMS$]:figures/nn.PNG
+
 [$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2) \ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]:/figures/boxm.pgn
 [$t\approx\frac{clock\ period}{NUM\_RNGS}$]:/figures/tpro.PNG
 [$$t=T/C\approx\alpha$$]:/figures/tmall.PNG
