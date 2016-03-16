@@ -44,7 +44,7 @@ The [Monte Carlo Method][Monte Carlo] is one of the most widely used approaches 
 
 The given time period has to be partitioned into M steps according to the style of the option. M=1 for a European option, since the payoff price is independent of the price before the expiration date. At each time point of a Monte Carlo simulation of this kind, the stock price is determined by the stock price at the previous time point and by a normally distributed random number. The expectation of the payoff price can thus be estimated by N parallel independent simulations.
 
-The convergence of the result produced by the Monte Carlo method is ensured in this case by running a very large number of simulation steps, namely ![$C=M \cdot N$] (which should be a very large number, e.g. ![$10^9$]). 
+The convergence of the result produced by the Monte Carlo method is ensured in this case by running a very large number of simulation steps, namely ![$C=M \cdot N$], (which should be a very large number, e.g. ![$10^9$]). 
 Other convergence criteria (e.g. checking the difference between successive iterations) could be added.
 
 
