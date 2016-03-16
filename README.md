@@ -10,8 +10,9 @@ The [Black-Scholes model][Black-Scholes Model], which was first published by Fis
 
 The geometric Brownian behaviour of the price of the risky asset is described by this stochastic differential equation:
 
-![$$dS=rSdt+\sigma SdW_t$$](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/equ_bs.PNG)
+![$$dS=rSdt+\sigma SdW_t$$]
 
+[$$dS=rSdt+\sigma SdW_t$$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/equ_bs.PNG
 where $S$ is the price of the risky asset (usually called stock price), $r$ is the fixed interest rate of the riskless asset, $\sigma$ is the volatility of the stock and $W_t$ is a [Wiener process][Wiener process].
 
 
