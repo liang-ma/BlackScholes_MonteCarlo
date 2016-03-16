@@ -123,7 +123,7 @@ Note that in the repository we had to include the OpenCL header for version 1.2.
 [clerror]: /figures/header_failure.PNG
 
 ### Parameters
-The values of the parameters for a given stock and option are listed in the namespace Paras int ***"main.cpp"***. 
+The values of the parameters for a given stock and option are listed in the namespace Paras in ***"main.cpp"***. 
 
 Parameter |  information
 :-------- | :---
@@ -191,8 +191,8 @@ NUM_STEPS	| 128
 
 Output |  value
 :-------- | :--- 
-call price| 24.86
-put price | 0.33
+call price| 23.67
+put price | 0.22
 
 ## Performance Metrics
 
