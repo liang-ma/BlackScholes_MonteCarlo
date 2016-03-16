@@ -14,7 +14,6 @@
 * rate:		interest rate
 * volatility:		volatility of stock
 * T:		time period of the option
-* kernel_name:	the kernel name
 *
 * Exception handling is enabled (__CL_ENABLE_EXCEPTIONS) to make host code simpler.
 *
@@ -32,26 +31,59 @@
 #include "../common/ML_cl.h"
 #endif
 
-#include "../common/stockData.h"
 #include <iostream>
 #include <fstream>
+#include <unistd.h>
 using namespace std;
 
 
 namespace Paras 
 {
-	const double S0 = 100;
-	const double K = 105;
-	const double rate = 0.1;
-	const double volatility = 0.15;
-	const double T = 10.0;
-	stockData data(T,rate,volatility,S0,K);
+	double S0 = 100;		// -s
+	double K = 105;			// -k
+	double rate = 0.1;		// -r
+	double volatility = 0.15;	// -v
+	double T = 10.0;		// -t
+
 }
 
 int main(int argc, char** argv)
 {
-	// Get the name of the kernel to be launched.
-	ifstream ifstr(argv[1]);
+	int opt;
+	char *fPos=NULL;
+	while((opt=getopt(argc,argv,"a:s:k:r:v:t:"))!=-1){
+		switch(opt){
+			case 'a':
+				fPos=optarg;
+				break;
+			case 's':
+				Paras::S0=atof(optarg);
+				break;
+			case 'k':
+				Paras::K=atof(optarg);
+				break;
+			case 'r':
+				Paras::rate=atof(optarg);
+				break;
+			case 'v':
+				Paras::volatility=atof(optarg);
+				break;
+			case 't':
+				Paras::T=atof(optarg);
+				break;
+			default:
+				cout<<"Usage"<<argv[0]
+					<<" [-a *.xclbin]"
+					<<" [-s stockPrice]"
+					<<" [-k strikePrice]"
+					<<" [-r rate]"
+					<<" [-v volitility]"
+					<<" [-t time]"<<endl;
+				return -1;
+		}
+	}
+	
+	ifstream ifstr(fPos); 
 	
 	const string programString(istreambuf_iterator<char>(ifstr),
 		(istreambuf_iterator<char>()));
@@ -94,11 +126,11 @@ int main(int argc, char** argv)
 		cl::EnqueueArgs enqueueArgs(commandQueue,cl::NDRange(1),cl::NDRange(1));
 		cl::Event event = kernelFunctor(enqueueArgs,
 						d_call,d_put,
-						Paras::data.timeT,
-						Paras::data.freeRate,
-				 		Paras::data.volatility,
-						Paras::data.initPrice,
-						Paras::data.strikePrice
+						Paras::T,
+						Paras::rate,
+				 		Paras::volatility,
+						Paras::S0,
+						Paras::K
 						);
 
 		commandQueue.finish();

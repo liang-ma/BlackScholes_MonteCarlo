@@ -12,9 +12,8 @@ add_device -vbnv xilinx:adm-pcie-7v3:1ddr:2.0
 
 # Host Source Files
 add_files "main.cpp"
-add_files "../common/stockData.cpp"
 # Host Compiler Flags
-set_property -name host_cflags -value "-I ../common -g -Wall -D __CLIANG__ " -objects [current_solution]
+set_property -name host_cflags -value "-g -Wall" -objects [current_solution]
 
 
 # Define a kernel to be compiled by SDAccel
@@ -50,7 +49,7 @@ create_compute_unit -opencl_binary [get_opencl_binary blackEuro1] -kernel [get_k
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackEuro1]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "blackEuro1.xclbin"
+run_emulation -flow hardware -args "-a blackEuro1.xclbin -s 100 -k 110 -r 0.05 -v 0.2 -t 1"
 
 #Compile the application to run on an FPGA
 #build_system
@@ -59,7 +58,7 @@ run_emulation -flow hardware -args "blackEuro1.xclbin"
 #package_system
 
 # Run the application in hardware
-#run_system -args "blackEuro1.xclbin"
+#run_system -args "-a blackEuro1.xclbin -s 100 -k 110 -r 0.05 -v 0.2 -t 1"
 
 
 # Compute the resource estimate for the application

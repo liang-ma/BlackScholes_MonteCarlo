@@ -12,9 +12,8 @@ add_device -vbnv xilinx:adm-pcie-7v3:1ddr:2.0
 
 # Host Source Files
 add_files "main.cpp"
-add_files "../common/stockData.cpp"
 # Host Compiler Flags
-set_property -name host_cflags -value "-g -Wall -D __CLIANG__" -objects [current_solution]
+set_property -name host_cflags -value "-g -Wall" -objects [current_solution]
 
 
 # Define a kernel to be compiled by SDAccel
@@ -54,7 +53,7 @@ report_estimate
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackAsian1]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "blackAsian1.xclbin"
+run_emulation -flow hardware -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -v 0.15 -t 10"
 
 #Compile the application to run on an FPGA
 #build_system
@@ -63,7 +62,7 @@ run_emulation -flow hardware -args "blackAsian1.xclbin"
 #package_system
 
 # Run the application in hardware
-#run_system -args "blackAsian1.xclbin"
+#run_system -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -v 0.15 -t 10"
 
 
 
