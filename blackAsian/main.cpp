@@ -19,7 +19,7 @@
 
 // This should be used when cl.hpp from SDAccel works.
 #ifdef CL_HEADER_BUG_FIXED
-#include "CL/cl.hpp"
+#include <CL/cl.hpp>
 #else
 #include "../common/ML_cl.h"
 #endif
