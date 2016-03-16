@@ -90,23 +90,19 @@ blackScholes
 │   │   RNG.cpp
 │   │   stockData.h
 │   │   stockData.cpp
+│   │   blackScholes.h
 │   └─  ML_cl.h
 │
 └── blackEuro
 │   │   solution.tcl
-│   │   blackEuro.h
 │   │   blackEuro.cpp
 │   │   main.cpp
-│   │   blackScholes.h
 │   └─  blackScholes.cpp
 │
 └── blackAsian
     │   solution.tcl
-    │   blackAsian.h
     │   blackAsian.cpp
-    │   testBench.h
     │   main.cpp
-    │   blackScholes.h
     └─  blackScholes.cpp
 ```
 
@@ -119,8 +115,7 @@ blackScholes.h | It declares the blackScholes object instantiated in the top fun
 blackScholes.cpp | It defines the blackScholes object instantiated in the top functions. Note that the definitions of the object methods are different between the European And Asian options.
 stockData.cpp	 | Basic stock datasets. It defines an object instantiated in the top functions
 RNG.cpp   | Random Number Generator class. It defines an object instantiated in the blackSholes objects.
-main.cpp  |  Host code calling the kernels
-testBench.h | Input parameters for the kernels
+main.cpp  |  Host code calling the kernels, Input parameters for the kernels are defined in a namespace Paras
 ML_cl.h | CL/cl.hpp for OpenCL 1.2.6
 
 Note that in the repository we had to include the OpenCL header for version 1.2.6, instead of the version 1.1 installed by sdaccel, because the latter causes compile-time errors. SDAccel and Vivado HLS work perfectly well with this header. See figure ![alt text][clerror]
@@ -128,7 +123,7 @@ Note that in the repository we had to include the OpenCL header for version 1.2.
 [clerror]: /figures/header_failure.PNG
 
 ### Parameters
-The values of the parameters for a given stock and option are listed in ***"testBench.h"***. 
+The values of the parameters for a given stock and option are listed in the namespace Paras int ***"main.cpp"***. 
 
 Parameter |  information
 :-------- | :---
