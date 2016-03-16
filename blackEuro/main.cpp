@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 			if (err.err() == CL_BUILD_PROGRAM_FAILURE)
 			{
 				string info;
-				program.geParasuildInfo(devices[0],CL_PROGRAM_BUILD_LOG, &info);
+				program.getBuildInfo(devices[0],CL_PROGRAM_BUILD_LOG, &info);
 				cout << info << endl;
 				return EXIT_FAILURE;
 			}
