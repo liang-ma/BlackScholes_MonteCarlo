@@ -17,8 +17,11 @@
 #define __CL_ENABLE_EXCEPTIONS
 
 // This should be used when cl.hpp from SDAccel works.
-// #include "CL/cl.hpp"
+#ifdef CL_HEADER_BUG_FIXED
+#include "CL/cl.hpp"
+#else
 #include "../common/ML_cl.h"
+#endif
 
 #include "testBench.h"
 

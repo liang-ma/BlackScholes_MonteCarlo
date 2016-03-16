@@ -69,11 +69,11 @@ then $Z_1$,$Z_2\sim N(0,1)$, also independent.
 ## Getting Started 
 
 The repository contains two directories, "blackEuro" and "blackAsian", implementing the European option and the Asian option respectively. They are written using C++, rather than OpenCL, because there is no workgroup-level memory that is worth sharing. All Monte Carlo simulations are independent.
-In this implementation, since the complexity of the random number generation process is simpler than the complexity of the Monte Carlo simulation step, 1 random number generator feed NUM_SIMS simulation groups each by utilizing BRAM storing the medium results. The iterations over NUM_RNGS are fully unrolled (as if they were executed by an independent work item in a work group) and the iterations over NUM_SIMS are pipelined. 
+In this implementation, since the complexity of the random number generation process is simpler than the complexity of the Monte Carlo simulation step, 1 random number generator feeds a group of NUM_SIMS simulations, by utilizing BRAMs storing the intermediate results. The iterations over NUM_RNGS are fully unrolled (as if they were executed by an independent work item in a work group) and the iterations over NUM_SIMS and NUM_SIMGROUPS are pipelined. 
 These two parameters should be chosen to fully utilize the resources on an FPGA.
-In order to ensure that enough simulations of a given stock are performed, NUM_SIMGROUPS can be then tuned.
+In order to ensure that enough simulations of a given stock are performed, NUM_SIMGROUPS can then be tuned.
 
-The total number of simulations is $N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$ and each parallel simulation group assigned to a given RNG runs NUM_SIMS simulations. 
+The total number of simulations is $N=NUM\_SIMS \cdot NUM\_RNG \cdot NUM\_SIMGROUPS$ and each simulation group assigned to a given RNG runs NUM_SIMS simulations. 
 The best value for NUM_SIMS can be chosen by maximizing the use of BRAM blocks.  By default it is 512 (which fills one BRAM block with 512 float values).
 
 ### File Tree
@@ -143,7 +143,7 @@ Parameter |  information
 :-------- | :---
 NUM_STEPS    | number of time steps ($M$)
 NUM_RNGS | number of RNGs running in parallel, proportional to the area cost
-NUM_SIMS   | number of simulations running in parallel for a given RNG
+NUM_SIMS   | number of simulations running in parallel for a given RNG (512 optimizes BRAM usage)
 NUM_SIMGROUPS  | number of simulation groups (each with $NUM\_RNG \cdot NUM\_SIMS simulations) running in pipeline, proportional to the execution time
 The area cost is proposrtional to $NUM\_RNG $.
 
@@ -169,6 +169,7 @@ K 	| 110
 rate    |  5%
 volatility | 20%
 NUM_RNGS | 8
+NUM_SIMS  | 512
 NUM_SIMGROUPS  | 4
 NUM_STEPS | 1
 
@@ -187,6 +188,7 @@ K 	| 105
 rate    |  1%
 volatility | 15%
 NUM_RNGS | 2
+NUM_SIMS  | 64 (to keep RTL simulation under control; it should ideally be 512)
 NUM_SIMGROUPS  | 2
 NUM_STEPS	| 128
 
@@ -198,10 +200,10 @@ put price | 0.33
 ## Performance Metrics
 
 
-As discussed above, the computational cost $C=M \cdot N$ is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is $O(C)$, so that we analyze the performance as the total simulation time per step, which is defined as: $t=T_s/C$
+As discussed above, the computational cost $C=M \cdot N$ is a key factor that affects both the performance of the simulation and the quality of the result. The time complexity of the algorithm is $O(C)$, so that we analyze the performance of our implementation as the total simulation time (number of clock cycles times clock period) per step: $t=T_s/C$
 
 
-The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so for each step, $$t=T/C\approx\alpha$$ 
+The time taken by the algorithm is $$T=\alpha M \cdot N+\beta N+\gamma M+\theta$$ so for each step, $$t=T/C\approx\alpha$$ 
 
 **Basic Simulation procedure:** 
 
@@ -209,7 +211,7 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 
 >>- **Inner loop** ($M$ iterations)
 
->>> - Generate random numbers
+>>> - Generate random numbers (unrolled loop)
 >>> - Estimate stock price at each time partition point 
 
 >> - Calculate the payoff price 
@@ -217,9 +219,9 @@ The time taken by the algorithm is $$T=\alpha MN+\beta N+\gamma M+\theta$$ so fo
 > 
 - Estimate the average 
 
-As can be analysed, $\alpha$ is related to the latency of the inner loop. Since each iteration in the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. One another factor is the mathematical operations. 
+We can see that $\alpha$ is related to the latency of the inner loop. Since each iteration of the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. The other factor are the mathematical operations of one Black Sholes step. 
 
-At a frequency no more than 100MHz, two random numbers are produced every two clock cycles considering the pipeline technique. In addition of the unrolling factor $NUM\_RNGS$, the time for each step on FPGA reaches $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz withe $NUM\_RNGS=8$, $t\approx1.25ns$
+At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor $NUM\_RNGS$, the time for each step on the FPGA $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz with $NUM\_RNGS=8$, $t\approx1.25ns$
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
