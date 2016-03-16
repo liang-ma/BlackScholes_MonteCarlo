@@ -12,7 +12,7 @@ The geometric Brownian behaviour of the price of the risky asset is described by
 
 ![$$dS=rSdt+\sigma SdW_t$$]
 
-where ![$S$] is the price of the risky asset (usually called stock price), ![$r$] is the fixed interest rate of the riskless asset, $\sigma$ is the volatility of the stock and ![$W_t$] is a [Wiener process][Wiener process].
+where S is the price of the risky asset (usually called stock price), r is the fixed interest rate of the riskless asset, $\sigma$ is the volatility of the stock and ![$W_t$] is a [Wiener process][Wiener process].
 
 
 According to Ito's Lemma, the analytical solution of this stochastic  differential equation is as follows:
@@ -20,7 +20,7 @@ According to Ito's Lemma, the analytical solution of this stochastic  differenti
 
 ![$$ S_{t+\Delta t}=e^{(r-\frac{1}{2}\sigma^2)\Delta t+\sigma\epsilon\sqrt{\Delta t} } $$]
 
-where ![$\epsilon\sim N(0,1)$]  (the standard normal distribution).
+where ![$\epsilon\sim N(0,1)$],  (the standard normal distribution).
 
 ### Call/Put Option
 Entering more specifically into the financial sector operations, two styles of stock transaction [options][option] are considered in this project, namely the European vanilla option and Asian option (which is one of the [exotic options][exotic options]). 
@@ -29,12 +29,12 @@ For the European vanilla option, we have:
 
 ![$$P_{Call}=max\{S-K,0\}\\P_{put}=max\{K-S,0\}$$]
 
-where [$S$] is the stock price at the expiration date (estimated by the model above) and $K$ is the strike price.
+where S is the stock price at the expiration date (estimated by the model above) and $K$ is the strike price.
 For the Asian option, we have:
 
 ![$$P_{Call}=max\{\frac{1}{T}\int_0^TSdt-K,0\}\\P_{put}=max\{K-\frac{1}{T}\int_0^TSdt,0\}$$]
 
-where ![$T$] is the time period (between now and the option expiration date) , ![$S$] is the stock price at the expiration date, and $K$ is the strike price.
+where ![$T$] is the time period (between now and the option expiration date) , S is the stock price at the expiration date, and $K$ is the strike price.
 
 [option]: https://en.wikipedia.org/wiki/Option_style
 [exotic option]: https://en.wikipedia.org/wiki/Exotic_option
@@ -42,7 +42,7 @@ where ![$T$] is the time period (between now and the option expiration date) , !
 ### The Monte Carlo Method
 The [Monte Carlo Method][Monte Carlo] is one of the most widely used approaches to simulate stochastic processes, like a stock price modeled with Black-Scholes. This is especially true for exotic options, which are usually not solvable analytically. In this project, the Monte Carlo Method is used to estimate the payoff price of a given instrument using the Black Scholes model. 
 
-The given time period has to be partitioned into ![$M$] steps according to the style of the option. ![$M=1$] for a European option, since the payoff price is independent of the price before the expiration date. At each time point of a Monte Carlo simulation of this kind, the stock price is determined by the stock price at the previous time point and by a normally distributed random number. The expectation of the payoff price can thus be estimated by ![$N$] parallel independent simulations.
+The given time period has to be partitioned into !M steps according to the style of the option. ![$M=1$] for a European option, since the payoff price is independent of the price before the expiration date. At each time point of a Monte Carlo simulation of this kind, the stock price is determined by the stock price at the previous time point and by a normally distributed random number. The expectation of the payoff price can thus be estimated by !N parallel independent simulations.
 
 The convergence of the result produced by the Monte Carlo method is ensured in this case by running a very large number of simulation steps, namely ![$C=M \cdot N$] (which should be a very large number, e.g. $10^9$). 
 Other convergence criteria (e.g. checking the difference between successive iterations) could be added.
@@ -126,7 +126,7 @@ ML_cl.h | CL/cl.hpp for OpenCL 1.2.6
 
 Note that in the repository we had to include the OpenCL header for version 1.2.6, instead of the version 1.1 installed by sdaccel, because the latter causes compile-time errors. SDAccel and Vivado HLS work perfectly well with this header. See figure ![alt text][clerror]
 
-[clerror]: https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/header_failure.PNG
+[clerror]: /figures/header_failure.PNG
 
 ### Parameters
 The values of the parameters for a given stock and option are listed in ***"testBench.h"***. 
@@ -157,9 +157,9 @@ In each sub-directory, there is a script file called "solution.tcl". It can be u
 
 The result of the call/put payoff price estimation will be printed on standard IO.
 
-Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost $C$ can be reduced. For instance, ![$NUM\_SIMGROUPS$] has been set to 2 for the Asian option.
+Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost $C$ can be reduced. For instance, NUM_SIMGROUPS has been set to 2 for the Asian option.
 
-![alt text](https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/CPU_emulation.PNG)
+![alt text](/figures/CPU_emulation.PNG)
 
 ### Sample Output
 For the European option:
@@ -210,9 +210,9 @@ The time taken by the algorithm is ![$$T=\alpha M \cdot N+\beta N+\gamma M+\thet
 
 **Basic Simulation procedure:** 
 
->-  **Outer loop** ($N$ iterations in total)
+>-  **Outer loop** (N iterations in total)
 
->>- **Inner loop** ($M$ iterations)
+>>- **Inner loop** (M iterations)
 
 >>> - Generate random numbers (unrolled loop)
 >>> - Estimate stock price at each time partition point 
@@ -224,7 +224,7 @@ The time taken by the algorithm is ![$$T=\alpha M \cdot N+\beta N+\gamma M+\thet
 
 We can see that [$\alpha$] is related to the latency of the inner loop. Since each iteration of the inner loop requires random numbers, one of factors that limit the latency is the latency of generating a random number. The other factor are the mathematical operations of one Black Sholes step. 
 
-At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor ![$NUM\_RNGS$], the time for each step on the FPGA $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz with $NUM\_RNGS=8$, $t\approx1.25ns$
+At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor NUM_RNGS, the time for each step on the FPGA $t\approx\frac{clock\ period}{NUM\_RNGS}$. For instance, at the frequency of 100MHz with $NUM\_RNGS=8$, $t\approx1.25ns$
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
@@ -235,19 +235,12 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [Monte Carlo]: https://en.wikipedia.org/wiki/Monte_Carlo_method  
 [Box Muller transformation]: https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
 
-[$NUM\_RNGS$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/num_rng.PNG
-[$NUM\_SIMGROUPS$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/num_sg.PNG
-[$NUM\_SIMS$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/num_s.PNG
-[$\alpha$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/alpha.PNG
-[$S$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/s.PNG
-[$K$]
-[$\sigma$]
+
+[$\alpha$]:/figures/alpha.PNG
+
+[$\sigma$]:figures/equ_bs.PNG
 [$W_t$]
-[$T$]
-[$M$]
-[$N$]
 [$C=M \cdot N$]
-[$M=1$]
 [$10^9$]
 [$2^{19937}-1$]
 [$U_1$,$U_2 \sim U(0,1)$]
@@ -255,9 +248,9 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 [$$Z_1=\sqrt{-2ln(U_1)}cos(2\pi U_2) \ Z_2=\sqrt{-2ln(U_1)}sin(2\pi U_2)$$]
 [$t\approx\frac{clock\ period}{NUM\_RNGS}$]
 [$$t=T/C\approx\alpha$$]
-[$$dS=rSdt+\sigma SdW_t$$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/equ_bs.PNG
-[$$ S_{t+\Delta t}=e^{(r-\frac{1}{2}\sigma^2)\Delta t+\sigma\epsilon\sqrt{\Delta t} } $$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/ito.PNG
-[$\epsilon\sim N(0,1)$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/eps.PNG
-[$$P_{Call}=max{S-K,0}\P_{put}=max{K-S,0}$$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/euro.PNG
-[$$P_{Call}=max{\frac{1}{T}\int_0^TSdt-K,0}\P_{put}=max{K-\frac{1}{T}\int_0^TSdt,0}$$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/asian.PNG
-[$$T=\alpha M \cdot N+\beta N+\gamma M+\theta$$]:https://github.com/KitAway/BlackScholes_MonteCarlo/blob/master/figures/tall.PNG
+[$$dS=rSdt+\sigma SdW_t$$]:/figures/equ_bs.PNG
+[$$ S_{t+\Delta t}=e^{(r-\frac{1}{2}\sigma^2)\Delta t+\sigma\epsilon\sqrt{\Delta t} } $$]:/figures/ito.PNG
+[$\epsilon\sim N(0,1)$]:/figures/eps.PNG
+[$$P_{Call}=max\{S-K,0\}\\P_{put}=max\{K-S,0\}$$]:/figures/euro.PNG
+[$$P_{Call}=max\{\frac{1}{T}\int_0^TSdt-K,0\}\\P_{put}=max\{K-\frac{1}{T}\int_0^TSdt,0\}$$]:/figures/asian.PNG
+[$$T=\alpha M \cdot N+\beta N+\gamma M+\theta$$]:/figures/tall.PNG
