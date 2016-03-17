@@ -3,6 +3,8 @@
 * Author:   Liang Ma (liang-ma@polito.it)
 *
 * In the definition of Box_Muller(), sin/cos are used instead of sinf/cosf, which contains some bugs.
+* macro__SINF_COSF_BUG_FIXED__ controls the switch between the two version.
+* 
 * due to bugs in the synthesizer (C/RTL co-simulation is failing).
 *
 *----------------------------------------------------------------------------
@@ -29,8 +31,6 @@
 #define PI (data_t) 3.14159265358979323846
 
 #define MINI_RND (data_t)2.328306e-10
-
-#define __SINF_COSF_BUG_FIXED__
 
 void RNG::init(uint seed)
 {

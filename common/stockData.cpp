@@ -7,11 +7,6 @@
 
 #include "stockData.h"
 
-#ifdef __CLIANG__
-#include <iostream>
-using namespace std;
-#endif
-
 stockData::stockData(data_t timeT, data_t freeRate, data_t volatility,
 		data_t initPrice,data_t strikePrice)
 {
@@ -30,7 +25,7 @@ stockData::stockData(const stockData& data)
 	this->volatility=data.volatility;
 	this->strikePrice=data.strikePrice;
 }
-#ifdef __CLIANG__
+
 void stockData::print()const
 {
 	cout<<"timeT:"<<timeT<<' '
@@ -39,4 +34,3 @@ void stockData::print()const
 			<<"initPrice:"<<initPrice<<' '
 			<<"strikePrice:"<<strikePrice<<endl;
 }
-#endif
