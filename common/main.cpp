@@ -22,7 +22,7 @@
 *
 * callR:	-c reference value for call price
 * putR:		-p reference value for put price
-*
+* kernel_name: -n the kernel name
 *----------------------------------------------------------------------------
 */
 
@@ -32,7 +32,7 @@
 #ifdef CL_HEADER_BUG_FIXED
 #include <CL/cl.hpp>
 #else
-#include "../common/ML_cl.h"
+#include "ML_cl.h"
 #endif
 
 #include <iostream>
@@ -44,23 +44,41 @@ using namespace std;
 
 namespace Paras 
 {
-	double S0 = 100;		// -s
-	double K = 110;			// -k
+	double S0 = 100;		    // -s
+	double K = 110;			    // -k
 	double rate = 0.05;   		// -r
 	double volatility = 0.2;	// -v
-	double T = 1.0;			// -t
+	double T = 1.0;			    // -t
+    char* kernel_name=NULL;     // -n
 }
-
+void usage(char* name)
+{
+    cout<<"Usage: "<<name
+        <<" -a *.xclbin"
+        <<" -n kernal"
+        <<" -s stockPrice"
+        <<" -k strikePrice"
+        <<" -r rate"
+        <<" -v volitility"
+        <<" -t time"
+        <<" [-c call price]"
+        <<" [-p put price]"
+        <<endl;
+}
 int main(int argc, char** argv)
 {
 	int opt;
 	double callR=-1, putR=-1;
 	bool flaga=false,flags=false,flagk=false,
 		flagr=false,flagv=false,flagt=false,
-		flagc=false,flagp=false;
-	char *fPos=NULL;
-	while((opt=getopt(argc,argv,"a:s:k:r:v:t:c:p:"))!=-1){
+		flagc=false,flagp=false,flagn=false;
+	char* fPos=NULL;
+	while((opt=getopt(argc,argv,"n:a:s:k:r:v:t:c:p:"))!=-1){
 		switch(opt){
+			case 'n':
+				Paras::kernel_name=optarg;
+				flagn=true;
+				break;
 			case 'a':
 				fPos=optarg;
 				flaga=true;
@@ -94,29 +112,13 @@ int main(int argc, char** argv)
 				flagp=true;
 				break;
 			default:
-				cout<<"Usage"<<argv[0]
-					<<" -a *.xclbin"
-					<<" -s stockPrice"
-					<<" -k strikePrice"
-					<<" -r rate"
-					<<" -v volitility"
-					<<" -t time"
-					<<" [-c call price]"
-					<<" [-p put price]"
-					<<endl;
+				usage(argv[0]);
 				return -1;
 		}
 	}
-	if(!(flaga&&flags&&flagk&&flagr&&flagv&&flagt))
+	if(!(flaga&&flags&&flagk&&flagr&&flagv&&flagt&&flagn))
 	{
-		cout<<"Usage"<<argv[0]
-			<<" -a *.xclbin"
-			<<" -s stockPrice"
-			<<" -k strikePrice"
-			<<" -r rate"
-			<<" -v volitility"
-			<<" -t time"
-			<<endl;
+		usage(argv[0]);
 		return -1;
 	}
 	ifstream ifstr(fPos); 
@@ -153,7 +155,7 @@ int main(int argc, char** argv)
 		cl::CommandQueue commandQueue(context, devices[0]);
 		
 		typedef cl::make_kernel<cl::Buffer,cl::Buffer,float,float,float,float,float> kernelType;
-		kernelType kernelFunctor = kernelType(program, "blackEuro");
+		kernelType kernelFunctor = kernelType(program, Paras::kernel_name);
 
 		cl::Buffer d_call = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
 		cl::Buffer d_put  = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
