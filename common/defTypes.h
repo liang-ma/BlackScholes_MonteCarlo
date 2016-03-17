@@ -11,18 +11,9 @@
 #ifndef __DEFTYPES__
 #define __DEFTYPES__
 
-#ifdef __CLIANG__
-
 #include <cmath>
 #include <iostream>
-using namespace std;
-
-#else
-
-#include "hls_math.h"
-#include <ap_fixed.h>
-
-#endif
+//using namespace std;
 
 typedef unsigned int uint;
 typedef float data_t;
