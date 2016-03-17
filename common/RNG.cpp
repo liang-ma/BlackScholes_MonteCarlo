@@ -2,10 +2,10 @@
 *
 * Author:   Liang Ma (liang-ma@polito.it)
 *
-* In the definition of Box_Muller(), sin/cos are used instead of sinf/cosf, which contains some bugs.
-* macro__SINF_COSF_BUG_FIXED__ controls the switch between the two version.
-* 
+* In the definition of Box_Muller(), sin/cos are used instead of sinf/cosf
 * due to bugs in the synthesizer (C/RTL co-simulation is failing).
+*
+* macro__SINF_COSF_BUG_FIXED__ controls the switch between the two version.
 *
 *----------------------------------------------------------------------------
 */
@@ -77,7 +77,7 @@ void RNG::init_array(RNG* rng, uint* seed, const int size)
 
 void RNG::extract_number(uint *num1, uint *num2)
 {
-#pragma HLS PIPELINE II=4
+#pragma HLS PIPELINE
 	int id1=increase(1), idm=increase(RNG_MH), idm1=increase(RNG_MHI);
 
  	uint x = this->seed,x1=this->mt_o[this->index],x2=this->mt_e[id1],
