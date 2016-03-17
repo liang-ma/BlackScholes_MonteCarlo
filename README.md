@@ -144,7 +144,7 @@ The area cost is proposrtional to NUM_RNG.
 ### How to run an example
 In each sub-directory, there is a script file called "solution.tcl". It can be used as follows:
 
-`  sdaccel solution.tcl
+>  sdaccel solution.tcl
 
 The result of the call/put payoff price estimation will be printed on standard IO.
 
