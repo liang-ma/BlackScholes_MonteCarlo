@@ -2,7 +2,7 @@
 *
 * Author:   Liang Ma (liang-ma@polito.it)
 *
-* In the definition of Box_Muller(), sin/cos are used instead of sinf/cosf
+* In the definition of Box_Muller(), sin/cos are used instead of sinf/cosf, which contains some bugs.
 * due to bugs in the synthesizer (C/RTL co-simulation is failing).
 *
 *----------------------------------------------------------------------------
@@ -30,7 +30,7 @@
 
 #define MINI_RND (data_t)2.328306e-10
 
-#define __LIANG__
+#define __SINF_COSF_BUG_FIXED__
 
 void RNG::init(uint seed)
 {
@@ -133,7 +133,7 @@ void RNG::BOX_MULLER(data_t *data1, data_t *data2,data_t deviation)
 	tmp1=num1*MINI_RND;
 	tmp2=num2*MINI_RND;
 	tp=sqrtf(fmaxf(-2*logf(tmp1),0)*deviation);
-#ifdef __LIANG__
+#ifndef __SINF_COSF_BUG_FIXED__
 	*data1=(data_t)cos(2*PI*(tmp2))*tp;
 	*data2=(data_t)sin(2*PI*(tmp2))*tp;
 #else
@@ -152,7 +152,7 @@ void RNG::BOX_MULLER(data_t *data1, data_t *data2,data_t ave, data_t deviation)
 	tmp1=num1*MINI_RND;
 	tmp2=num2*MINI_RND;
 	tp=sqrtf(fmaxf(-2*logf(tmp1),0)*deviation);
-#ifdef __LIANG__
+#ifndef __SINF_COSF_BUG_FIXED__
 	*data1=(data_t)cos(2*PI*(tmp2))*tp+ave;
 	*data2=(data_t)sin(2*PI*(tmp2))*tp+ave;
 #else

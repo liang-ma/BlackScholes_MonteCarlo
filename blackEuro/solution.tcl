@@ -49,7 +49,7 @@ create_compute_unit -opencl_binary [get_opencl_binary blackEuro1] -kernel [get_k
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackEuro1]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "-a blackEuro1.xclbin -s 100 -k 110 -r 0.05 -v 0.2 -t 1"
+run_emulation -flow hardware -args "-a blackEuro1.xclbin -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65"
 
 #Compile the application to run on an FPGA
 #build_system
