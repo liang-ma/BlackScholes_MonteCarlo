@@ -53,7 +53,7 @@ report_estimate
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackAsian1]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -v 0.15 -t 10"
+run_emulation -flow hardware -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
 
 #Compile the application to run on an FPGA
 #build_system

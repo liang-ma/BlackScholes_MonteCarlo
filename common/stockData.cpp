@@ -28,9 +28,10 @@ stockData::stockData(const stockData& data)
 
 void stockData::print()const
 {
-	cout<<"timeT:"<<timeT<<' '
+	std::cout<<"timeT:"<<timeT<<' '
 			<<"freeRate:"<<freeRate<<' '
 			<<"volatility:"<<volatility<<' '
 			<<"initPrice:"<<initPrice<<' '
-			<<"strikePrice:"<<strikePrice<<endl;
+			<<"strikePrice:"<<strikePrice
+			<<std::endl;
 }

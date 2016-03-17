@@ -175,11 +175,11 @@ int main(int argc, char** argv)
 		cl::copy(commandQueue, d_put, h_put.begin(), h_put.end());
 		cout<<"the call price is:"<<h_call[0]<<'\t';
 		if(flagc)
-			cout<<"the difference with the reference value is"<<fabs(h_call[0]/callR-1)*100<<'%'<<endl;
+			cout<<"the difference with the reference value is "<<fabs(h_call[0]/callR-1)*100<<'%'<<endl;
 		cout<<endl;
 		cout<<"the put price is:"<<h_put[0]<<'\t';
 		if(flagp)
-			cout<<"the difference with the reference value is"<<fabs(h_put[0]/putR-1)*100<<'%'<<endl;
+			cout<<"the difference with the reference value is "<<fabs(h_put[0]/putR-1)*100<<'%'<<endl;
 		cout<<endl;
 	}
 	catch (cl::Error err)
