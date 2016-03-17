@@ -88,18 +88,17 @@ blackScholes
 │   │   stockData.h
 │   │   stockData.cpp
 │   │   blackScholes.h
+│   │   main.cpp
 │   └─  ML_cl.h
 │
 └── blackEuro
 │   │   solution.tcl
 │   │   blackEuro.cpp
-│   │   main.cpp
 │   └─  blackScholes.cpp
 │
 └── blackAsian
     │   solution.tcl
     │   blackAsian.cpp
-    │   main.cpp
     └─  blackScholes.cpp
 ```
 
@@ -120,7 +119,7 @@ Note that in the repository we had to include the OpenCL header for version 1.2.
 [clerror]: /figures/header_failure.PNG
 
 ### Parameters
-The values of the parameters for a given stock and option are listed in the namespace Paras in ***"main.cpp"***. The values of these parameters are assigned during runtime. 
+The values of the parameters for a given stock and option are listed in the namespace Paras in ***"main.cpp"***. The values of these parameters are assigned during runtime. (Usage see details in file solution.tcl)
 
 Parameter |  information
 :-------- | :---
