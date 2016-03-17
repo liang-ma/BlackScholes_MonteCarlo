@@ -120,7 +120,7 @@ Note that in the repository we had to include the OpenCL header for version 1.2.
 [clerror]: /figures/header_failure.PNG
 
 ### Parameters
-The values of the parameters for a given stock and option are listed in the namespace Paras in ***"main.cpp"***. 
+The values of the parameters for a given stock and option are listed in the namespace Paras in ***"main.cpp"***. The values of these parameters are assigned during runtime. 
 
 Parameter |  information
 :-------- | :---
