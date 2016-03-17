@@ -11,10 +11,9 @@
 #ifndef __DEFTYPES__
 #define __DEFTYPES__
 
-
 #include <cmath>
 #include <iostream>
-using namespace std;
+//using namespace std;
 
 typedef unsigned int uint;
 typedef float data_t;

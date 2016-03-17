@@ -11,7 +11,7 @@ create_solution -name $solution -force
 add_device -vbnv xilinx:adm-pcie-7v3:1ddr:2.0
 
 # Host Source Files
-add_files "main.cpp"
+add_files "../common/main.cpp"
 # Host Compiler Flags
 set_property -name host_cflags -value "-g -Wall" -objects [current_solution]
 
@@ -53,7 +53,7 @@ report_estimate
 compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackAsian1]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -v 0.15 -t 10"
+run_emulation -flow hardware -args "-a blackAsian1.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
 
 #Compile the application to run on an FPGA
 #build_system
@@ -62,7 +62,7 @@ run_emulation -flow hardware -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -
 #package_system
 
 # Run the application in hardware
-#run_system -args "-a blackAsian1.xclbin -s 100 -k 105 -r 0.1 -v 0.15 -t 10"
+#run_system -args "-a blackAsian1.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
 
 
 
