@@ -124,13 +124,12 @@ The values of these parameters, except for the name of the kernel, have a defaul
 The call price and the put price are used for functional verification only (they are the expected output values for a given set of input values)
 
 For example, the RTL emulation can be executed as follows to use the Asian option with the default parameter values:
-...
-run_emulation -flow hardware -args "-n blackAsian"
-...
-This on the other hand uses a different set of values for the input parameters, and specifies the expected call and put output values:
-...
-run_emulation -flow hardware -args "-n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
-...
+> run_emulation -flow hardware -args "-n blackAsian"
+
+This TCL command in solution.tcl, on the other hand, uses a different set of values for the input parameters, and specifies the expected call and put output values:
+
+> run_emulation -flow hardware -args "-n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
+
 
 
 Argument |  Meaning and default value
