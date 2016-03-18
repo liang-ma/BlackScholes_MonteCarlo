@@ -3,7 +3,6 @@
 * Author:   Liang Ma (liang-ma@polito.it)
 *
 * Host code defining all the parameters and launching the kernel. 
-* The only command line argument is the name of the kernel.
 *
 * ML_cl.h is the OpenCL library file <CL/cl.hpp>. Currently the version shipped with SDAccel is buggy.
 *
@@ -11,7 +10,9 @@
 *
 * The global and local size are set to 1 since the kernel is written in C/C++ instead of OpenCL.
 *
-* Several input parameters for the simulation are defined in namespace Paras.
+* Several input parameters for the simulation are defined in namespace Params
+* and can be changed by using command line options. Only the kernel name must
+* be defined.
 *
 * S0:		-s stock price at time 0
 * K:		-k strike price
@@ -22,7 +23,8 @@
 *
 * callR:	-c reference value for call price
 * putR:		-p reference value for put price
-* kernel_name: -n the kernel name
+* binary_name:  -a the .xclbin binary name
+* kernel_name:  -n the kernel name
 *----------------------------------------------------------------------------
 */
 
@@ -42,27 +44,28 @@
 #include <unistd.h>
 using namespace std;
 
-namespace Paras 
+namespace Params 
 {
 	double S0 = 100;		    // -s
 	double K = 110;			    // -k
 	double rate = 0.05;   		// -r
 	double volatility = 0.2;	// -v
 	double T = 1.0;			    // -t
-    char* kernel_name=NULL;     // -n
+	char *kernel_name=NULL;     // -n
+	char *binary_name="blackScholes.xclbin";     // -a
 }
 void usage(char* name)
 {
     cout<<"Usage: "<<name
-        <<" -a *.xclbin"
-        <<" -n kernal"
-        <<" -s stockPrice"
-        <<" -k strikePrice"
+        <<" -a opencl_binary_name"
+        <<" -n kernel_name"
+        <<" -s stock_price"
+        <<" -k strike_price"
         <<" -r rate"
-        <<" -v volitility"
+        <<" -v volatility"
         <<" -t time"
-        <<" [-c call price]"
-        <<" [-p put price]"
+        <<" [-c call_price]"
+        <<" [-p put_price]"
         <<endl;
 }
 int main(int argc, char** argv)
@@ -72,35 +75,34 @@ int main(int argc, char** argv)
 	bool flaga=false,flags=false,flagk=false,
 		flagr=false,flagv=false,flagt=false,
 		flagc=false,flagp=false,flagn=false;
-	char* fPos=NULL;
 	while((opt=getopt(argc,argv,"n:a:s:k:r:v:t:c:p:"))!=-1){
 		switch(opt){
 			case 'n':
-				Paras::kernel_name=optarg;
+				Params::kernel_name=optarg;
 				flagn=true;
 				break;
 			case 'a':
-				fPos=optarg;
+				Params::binary_name=optarg;
 				flaga=true;
 				break;
 			case 's':
-				Paras::S0=atof(optarg);
+				Params::S0=atof(optarg);
 				flags=true;
 				break;
 			case 'k':
-				Paras::K=atof(optarg);
+				Params::K=atof(optarg);
 				flagk=true;
 				break;
 			case 'r':
-				Paras::rate=atof(optarg);
+				Params::rate=atof(optarg);
 				flagr=true;
 				break;
 			case 'v':
-				Paras::volatility=atof(optarg);
+				Params::volatility=atof(optarg);
 				flagv=true;
 				break;
 			case 't':
-				Paras::T=atof(optarg);
+				Params::T=atof(optarg);
 				flagt=true;
 				break;
 			case 'c':
@@ -116,12 +118,12 @@ int main(int argc, char** argv)
 				return -1;
 		}
 	}
-	if(!(flaga&&flags&&flagk&&flagr&&flagv&&flagt&&flagn))
-	{
+	// Check the mandatory argument.
+	if(!flagn) {
 		usage(argv[0]);
 		return -1;
 	}
-	ifstream ifstr(fPos); 
+	ifstream ifstr(Params::binary_name); 
 	const string programString(istreambuf_iterator<char>(ifstr),
 		(istreambuf_iterator<char>()));
 	vector<float> h_call(1),h_put(1);
@@ -155,7 +157,7 @@ int main(int argc, char** argv)
 		cl::CommandQueue commandQueue(context, devices[0]);
 		
 		typedef cl::make_kernel<cl::Buffer,cl::Buffer,float,float,float,float,float> kernelType;
-		kernelType kernelFunctor = kernelType(program, Paras::kernel_name);
+		kernelType kernelFunctor = kernelType(program, Params::kernel_name);
 
 		cl::Buffer d_call = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
 		cl::Buffer d_put  = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(float));
@@ -163,11 +165,11 @@ int main(int argc, char** argv)
 		cl::EnqueueArgs enqueueArgs(commandQueue,cl::NDRange(1),cl::NDRange(1));
 		cl::Event event = kernelFunctor(enqueueArgs,
 						d_call,d_put,
-						Paras::T,
-						Paras::rate,
-				 		Paras::volatility,
-						Paras::S0,
-						Paras::K
+						Params::T,
+						Params::rate,
+				 		Params::volatility,
+						Params::S0,
+						Params::K
 						);
 
 		commandQueue.finish();
@@ -175,11 +177,11 @@ int main(int argc, char** argv)
 
 		cl::copy(commandQueue, d_call, h_call.begin(), h_call.end());
 		cl::copy(commandQueue, d_put, h_put.begin(), h_put.end());
-		cout<<"the call price is:"<<h_call[0]<<'\t';
+		cout<<"the call price is: "<<h_call[0]<<'\t';
 		if(flagc)
 			cout<<"the difference with the reference value is "<<fabs(h_call[0]/callR-1)*100<<'%'<<endl;
 		cout<<endl;
-		cout<<"the put price is:"<<h_put[0]<<'\t';
+		cout<<"the put price is: "<<h_put[0]<<'\t';
 		if(flagp)
 			cout<<"the difference with the reference value is "<<fabs(h_put[0]/putR-1)*100<<'%'<<endl;
 		cout<<endl;

@@ -29,31 +29,31 @@ add_files -kernel [get_kernels blackAsian] "../common/RNG.cpp"
 add_files -kernel [get_kernels blackAsian] "../common/stockData.cpp"
 
 # Create a binary container. Every SDAccel application has at least 1 binary container to hold the FPGA binary.
-create_opencl_binary blackAsian1
+create_opencl_binary blackScholes
 # Depending on configuration, a target device may have 1 or more areas reserved for kernels compiled by SDAccel
 # The user must tell SDAccel which area to target on the device. This sets the compilation parameters for the kernel.
-set_property region OCL_REGION_0 [get_opencl_binary blackAsian1]
+set_property region OCL_REGION_0 [get_opencl_binary blackScholes]
 # Kernels are compiled into compute units. There is at least 1 compute unit per kernel in an FPGA binary.
-create_compute_unit -opencl_binary [get_opencl_binary blackAsian1] -kernel [get_kernels blackAsian] -name K1
+create_compute_unit -opencl_binary [get_opencl_binary blackScholes] -kernel [get_kernels blackAsian] -name K1
 
 
 
 # Compile the design for CPU based emulation
 # Currently it does not work due to a bug in SDAccel.
-#compile_emulation -flow cpu -opencl_binary [get_opencl_binary blackAsian]
+#compile_emulation -flow cpu -opencl_binary [get_opencl_binary blackScholes]
 
 # Run the design in CPU emulation mode
 # Currently it does not work due to a bug in SDAccel.
-#run_emulation -flow cpu -args "blackAsian.xclbin"
+#run_emulation -flow cpu -args "-a blackScholes.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
 
 # Compute the resource estimate for the application
 report_estimate
 
-# Compile the median filter for CPU emulation
-compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackAsian1]
+# Compile the median filter for RTL simulation
+compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackScholes]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "-a blackAsian1.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
+run_emulation -flow hardware -args "-a blackScholes.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
 
 #Compile the application to run on an FPGA
 #build_system
@@ -62,8 +62,5 @@ run_emulation -flow hardware -args "-a blackAsian1.xclbin -n blackAsian -s 100 -
 #package_system
 
 # Run the application in hardware
-#run_system -args "-a blackAsian1.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
-
-
-
+#run_system -args "-a blackScholes.xclbin -n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
 

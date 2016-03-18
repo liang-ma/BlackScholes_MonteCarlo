@@ -111,7 +111,7 @@ blackScholes.h | It declares the blackScholes object instantiated in the top fun
 blackScholes.cpp | It defines the blackScholes object instantiated in the top functions. Note that the definitions of the object methods are different between the European And Asian options.
 stockData.cpp	 | Basic stock datasets. It defines an object instantiated in the top functions
 RNG.cpp   | Random Number Generator class. It defines an object instantiated in the blackSholes objects.
-main.cpp  |  Host code calling the kernels, Input parameters for the kernels are defined in a namespace Paras
+main.cpp  |  Host code calling the kernels, Input parameters for the kernels can be changed from the comman line.
 ML_cl.h | CL/cl.hpp for OpenCL 1.2.6
 
 Note that in the repository we had to include the OpenCL header for version 1.2.6, instead of the version 1.1 installed by sdaccel, because the latter causes compile-time errors. SDAccel and Vivado HLS work perfectly well with this header. See figure ![alt text][clerror]
@@ -119,18 +119,33 @@ Note that in the repository we had to include the OpenCL header for version 1.2.
 [clerror]: /figures/header_failure.PNG
 
 ### Parameters
-The values of the parameters for a given stock and option are listed in the namespace Paras in ***"main.cpp"***. The values of these parameters are assigned during runtime. (Usage see details in file solution.tcl)
+The values of the parameters for a given stock and option are listed in the namespace Params in ***"main.cpp"***. 
+The values of these parameters, except for the name of the kernel, have a default value and can be changed via the corresponding command-line option at runtime. The kernel name must be "blackAsian" for the Asian option and blackEuro for the European one.
+The call price and the put price are used for functional verification only (they are the expected output values for a given set of input values)
 
-Parameter |  information
+For example, the RTL emulation can be executed as follows to use the Asian option with the default parameter values:
+...
+run_emulation -flow hardware -args "-n blackAsian"
+...
+This on the other hand uses a different set of values for the input parameters, and specifies the expected call and put output values:
+...
+run_emulation -flow hardware -args "-n blackAsian -s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283"
+...
+
+
+Argument |  Meaning and default value
 :-------- | :---
-T	       |  time period
-rate       |  interest rate of riskless asset
-volatility |  volatility of the risky asset (stock)
-S0		   |  initial price of the stock
-K          |  strike price for the option
-kernel_name | the kernel name, to be passed to the OpenCL runtime
+-t       |  time period (1.0)
+-r       |  interest rate of riskless asset (0.05)
+-v 	 |  volatility of the risky asset (0.2)
+-s	 |  initial price of the stock (100)
+-k       |  strike price for the option (110)
+-n 	 | the kernel name, to be passed to the OpenCL runtime (no default; must be blackAsian or blackEuro)
+-n 	 | the kernel name, to be passed to the OpenCL runtime (blackScholes.xclbin)
+-c       | expected call price (for verification)
+-p       | expected put price (for verification)
 
-The number of simulations N, and the number of time partitions M, as well as all the other parameters related to the simulation, are listed in ***"blackScholes.cpp"***
+The number of simulations N, and the number of time partitions M, as well as all the other parameters related to the simulation, are listed in ***"blackScholes.cpp"***. They are compile-time constants in order to generate an optimized implementation. However, NUM_SIMGROUPS could also be set via a run-time command line option, like those above.
 
 Parameter |  information
 :-------- | :---

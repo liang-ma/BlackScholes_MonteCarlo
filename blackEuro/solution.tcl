@@ -29,27 +29,29 @@ add_files -kernel [get_kernels blackEuro] "../common/RNG.cpp"
 add_files -kernel [get_kernels blackEuro] "../common/stockData.cpp"
 
 # Create a binary container. Every SDAccel application has at least 1 binary container to hold the FPGA binary.
-create_opencl_binary blackEuro1
+create_opencl_binary blackScholes
 # Depending on configuration, a target device may have 1 or more areas reserved for kernels compiled by SDAccel
 # The user must tell SDAccel which area to target on the device. This sets the compilation parameters for the kernel.
-set_property region OCL_REGION_0 [get_opencl_binary blackEuro1]
+set_property region OCL_REGION_0 [get_opencl_binary blackScholes]
 # Kernels are compiled into compute units. There is at least 1 compute unit per kernel in an FPGA binary.
-create_compute_unit -opencl_binary [get_opencl_binary blackEuro1] -kernel [get_kernels blackEuro] -name K1
+create_compute_unit -opencl_binary [get_opencl_binary blackScholes] -kernel [get_kernels blackEuro] -name K1
 
 # Compile the design for CPU based emulation
 # Currently it does not work due to a bug in SDAccel.
-#compile_emulation -flow cpu -opencl_binary [get_opencl_binary blackEuro]
+#compile_emulation -flow cpu -opencl_binary [get_opencl_binary blackScholes]
 
 # Run the design in CPU emulation mode
 # Currently it does not work due to a bug in SDAccel.
-#run_emulation -flow cpu -args "blackEuro.xclbin"
+#run_emulation -flow cpu -args "-a blackScholes.xclbin -n blackEuro -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65"
 
+# Compute the resource estimate for the application
+report_estimate
 
 # Compile the design for RTL simulation
-compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackEuro1]
+compile_emulation -flow hardware -opencl_binary [get_opencl_binary blackScholes]
 
 # Run the RTL simulation of the application
-run_emulation -flow hardware -args "-a blackEuro1.xclbin -n blackEuro -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65"
+run_emulation -flow hardware -args "-a blackScholes.xclbin -n blackEuro -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65"
 
 #Compile the application to run on an FPGA
 #build_system
@@ -58,11 +60,7 @@ run_emulation -flow hardware -args "-a blackEuro1.xclbin -n blackEuro -s 100 -k 
 #package_system
 
 # Run the application in hardware
-#run_system -args "-a blackEuro1.xclbin -n blackEuro -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65"
+#run_system -args "-a blackScholes.xclbin -n blackEuro -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65"
 
-
-
-# Compute the resource estimate for the application
-report_estimate
 
 
