@@ -57,13 +57,13 @@ namespace Params
 void usage(char* name)
 {
     cout<<"Usage: "<<name
-        <<" -a opencl_binary_name"
+        <<" [-a opencl_binary_name]"
         <<" -n kernel_name"
-        <<" -s stock_price"
-        <<" -k strike_price"
-        <<" -r rate"
-        <<" -v volatility"
-        <<" -t time"
+        <<" [-s stock_price]"
+        <<" [-k strike_price]"
+        <<" [-r rate]"
+        <<" [-v volatility]"
+        <<" [-t time]"
         <<" [-c call_price]"
         <<" [-p put_price]"
         <<endl;
