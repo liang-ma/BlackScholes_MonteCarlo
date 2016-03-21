@@ -241,8 +241,8 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 platform         |     time(s)  | power(W)| energy(J)| notes
 :--------------- | ------------:| -------:| --------:|-------------
 HD 4400          |     18.00    |   15    |     270  |
-GTX Titan        | 0.23-0.86    |  375    |  80-320  | extrapolated
-Radeon R9        | 0.22-1.14    |  750    | 165-855  | extrapolated
+GTX Titan        |      1.08    |  375    |     405  | extrapolated
+Radeon R9        |      1.30    |  750    |     975  | extrapolated
 Virtex sin/cos   |      1.15    |   24    |      28  |
 Virtex sinf/cosf |      0.41    |   26    |      12  | cosim failure
 
