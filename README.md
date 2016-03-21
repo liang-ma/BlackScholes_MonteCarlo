@@ -230,6 +230,22 @@ We can see that ![$\alpha$] is related to the latency of the inner loop. Since e
 
 At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor NUM_RNGS, the time for each step on the FPGA ![$t\approx\frac{clock\ period}{NUM\_RNGS}$]. For instance, at the frequency of 100MHz with NUM_RNGS=8, ![$t\approx1.25ns$]
 
+### Performance Comparison
+- Intel HD Graphics 4400 laptop GPU, with 256 cores
+- GeForce GTX Titan Z with 5760 cores (**extrapolated**)
+- AMD Radeon R9 Fury X (**extrapolated**)
+- Virtex 7 Virtex 7, using the sin/cos functions, using the sin/cos functions
+- Virtex 7 Virtex 7, using the sinf/cosf functions, using the sin/cos functions
+(RTL cosimulation error)
+
+platform         |     time(s)  | power(W)| energy(J)| notes
+:--------------- | ------------:| -------:| --------:|-------------
+HD 4400          |     18.00    |   15    |     270  |
+GTX Titan        | 0.23-0.86    |  375    |  80-320  | extrapolated
+Radeon R9        | 0.22-1.14    |  750    | 165-855  | extrapolated
+Virtex sin/cos   |      1.15    |   24    |      28  |
+Virtex sinf/cosf |      0.41    |   26    |      12  | cosim failure
+
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
 [Wiener process]: https://en.wikipedia.org/wiki/Wiener_process
