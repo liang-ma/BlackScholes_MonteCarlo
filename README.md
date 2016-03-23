@@ -161,9 +161,7 @@ In each sub-directory, there is a script file called "solution.tcl". It can be u
 
 The result of the call/put payoff price estimation will be printed on standard IO.
 
-Due to bugs in SDAccel, the kernel (written in C++) cannot be emulated on the CPU right now (see the figure below). Only RTL simulation is available. However, note that RTL simulation takes a very long time. In order to obtain (imprecise) results quickly, the computation cost C can be reduced. For instance, NUM_SIMGROUPS has been set to 2 for the Asian option.
-
-![alt text](/figures/CPU_emulation.PNG)
+Note that RTL simulation can take a very long time for the Asian option. In order to obtain (imprecise) results quickly, the computation cost C can be reduced. For instance, NUM_SIMGROUPS has been set to 2 for the Asian option.
 
 ### Sample Output
 For the European option:
@@ -234,17 +232,14 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 - Intel HD Graphics 4400 laptop GPU, with 256 cores
 - GeForce GTX Titan Z with 5760 cores (**extrapolated**)
 - AMD Radeon R9 Fury X (**extrapolated**)
-- Virtex 7 Virtex 7, using the sin/cos functions, using the sin/cos functions
-- Virtex 7 Virtex 7, using the sinf/cosf functions, using the sin/cos functions
-(RTL cosimulation error)
+- Virtex 7 xc7vx690tffg1157-2, using the sin/cos functions
 
 platform         |     time(s)  | power(W)| energy(J)| notes
 :--------------- | ------------:| -------:| --------:|-------------
 HD 4400          |     18.00    |   15    |     270  |
 GTX Titan        |      1.08    |  375    |     405  | extrapolated
 Radeon R9        |      1.30    |  750    |     975  | extrapolated
-Virtex sin/cos   |      1.15    |   24    |      28  |
-Virtex sinf/cosf |      0.41    |   26    |      12  | cosim failure
+Virtex 7 sin/cos |      1.15    |   24    |      28  |
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
