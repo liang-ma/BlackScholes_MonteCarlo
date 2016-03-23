@@ -114,9 +114,7 @@ RNG.cpp   | Random Number Generator class. It defines an object instantiated in 
 main.cpp  |  Host code calling the kernels, Input parameters for the kernels can be changed from the comman line.
 ML_cl.h | CL/cl.hpp for OpenCL 1.2.6
 
-Note that in the repository we had to include the OpenCL header for version 1.2.6, instead of the version 1.1 installed by sdaccel, because the latter causes compile-time errors. SDAccel and Vivado HLS work perfectly well with this header. See figure ![alt text][clerror]
-
-[clerror]: /figures/header_failure.PNG
+Note that in the repository we had to include the OpenCL header for version 1.2.6, instead of the version 1.1 installed by sdaccel, because the latter causes compile-time errors. SDAccel and Vivado HLS work perfectly well with this header. 
 
 ### Parameters
 The values of the parameters for a given stock and option are listed in the namespace Params in ***"main.cpp"***. 
