@@ -2,6 +2,8 @@ Monte Carlo Methods applied to the Black-Scholes financial market model
 ============
 
 ## Overview
+This project implements a Monte Carlo simulation of the Black-Scholes financial model, using both the European and the Asian options. It contains an OpenCL C++ kernel, to be mapped to FPGA via SDAccel. It provides much better energy-per-operation than a GPU implementation, at a comparable performance level.
+
 ### Black-Scholes Model
 The [Black-Scholes model][Black-Scholes Model], which was first published by Fischer Black and Myron Scholes in 1973, is a famous and basic mathematical model describing the behaviour of investment instruments in financial markets. This model focuses on comparing the Return On Investment for one risky asset, whose price is subject to [geometric Brownian motion][geometric Brownian motion] and one riskless asset with a fixed interest rate. 
 
