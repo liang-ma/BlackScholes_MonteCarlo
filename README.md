@@ -234,12 +234,13 @@ At frequencies below 100MHz on modern FPGAs, two random numbers are produced eve
 - AMD Radeon R9 Fury X (**extrapolated**)
 - Virtex 7 xc7vx690tffg1157-2, using the sin/cos functions
 
-platform         |     time(s)  | power(W)| energy(J)| notes
-:--------------- | ------------:| -------:| --------:|-------------
-HD 4400          |     18.00    |   15    |     270  |
-GTX Titan        |      1.08    |  375    |     405  | extrapolated
-Radeon R9        |      1.30    |  750    |     975  | extrapolated
-Virtex 7 sin/cos |      1.15    |   24    |      28  |
+platform         |     t(ns)    | power(W)| energy/step(nJ)| notes
+:--------------- | ------------:| -------:| --------: |-------------
+HD 4400          |      3.13    |  15     |     46.9  |
+GTX 960          |      0.163   |  120    |     19.56 | 
+Quadro K4200     |      0.204   |  105    |     21.42 |
+GTX Titan        |      0.0389  |  375    |     14.61 | extrapolated
+Virtex 7 sin/cos |      0.315   |  24.4   |     7.69  | 
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion	
