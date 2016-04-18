@@ -166,17 +166,27 @@ Note that RTL simulation can take a very long time for the Asian option. In orde
 ### Sample Output
 For the European option:
 
-Input parameter |  value
+Option parameter |  value
 :-------- | :---
 T| 1
 S0  | 100
 K 	| 110
 rate    |  5%
 volatility | 20%
+
+Simulation parameter |  value
+:-------- | :---
 NUM_RNGS | 8
 NUM_SIMS  | 512
 NUM_SIMGROUPS  | 4
 NUM_STEPS | 1
+
+Area utilization | value
+:-------- | :---
+LUT | 28%
+FF  | 14%
+BRAM | 3%
+DSP  | 13%
 
 Output |  value
 :-------- | :--- 
@@ -185,17 +195,27 @@ put price | 10.65
 
 For the Asian option,
 
-Input parameter |  value
+Option parameter |  value
 :-------- | :---
 T| 10
 S0  | 100
 K 	| 105
 rate    |  1%
 volatility | 15%
+
+Simulation parameter |  value
+:-------- | :---
 NUM_RNGS | 2
 NUM_SIMS  | 64 (to keep RTL simulation under control; it should ideally be 512)
 NUM_SIMGROUPS  | 2
 NUM_STEPS	| 128
+
+Area utilization | value
+:-------- | :---
+LUT | 7%
+FF  | 4%
+BRAM | 1%
+DSP  | 3%
 
 Output |  value
 :-------- | :--- 
