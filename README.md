@@ -140,7 +140,7 @@ Argument |  Meaning and default value
 -s	 |  initial price of the stock (100)
 -k       |  strike price for the option (110)
 -n 	 | the kernel name, to be passed to the OpenCL runtime (no default; must be blackAsian or blackEuro)
--n 	 | the kernel name, to be passed to the OpenCL runtime (blackScholes.xclbin)
+-a 	 | the binary name, to be passed to the OpenCL runtime (blackScholes.xclbin)
 -c       | expected call price (for verification)
 -p       | expected put price (for verification)
 
@@ -229,9 +229,10 @@ We can see that ![$\alpha$] is related to the latency of the inner loop. Since e
 At frequencies below 100MHz on modern FPGAs, two random numbers are produced every two clock cycles (pipeline with Initiation Interval 2). By considering also the unrolling factor NUM_RNGS, the time for each step on the FPGA ![$t\approx\frac{clock\ period}{NUM\_RNGS}$]. For instance, at the frequency of 100MHz with NUM_RNGS=8, ![$t\approx1.25ns$]
 
 ### Performance Comparison
-- Intel HD Graphics 4400 laptop GPU, with 256 cores
-- GeForce GTX Titan Z with 5760 cores (**extrapolated**)
-- AMD Radeon R9 Fury X (**extrapolated**)
+- Intel HD Graphics 4400 laptop GPU, with 80 cores, 1100MHz
+- GeForce GTX 960 with 1024 cores, 1178MHz
+- Quadro K4200 with 1344 cores, 784MHz
+- GeForce GTX Titan Z with 5760 cores, 876MHz(**extrapolated**)
 - Virtex 7 xc7vx690tffg1157-2, using the sin/cos functions
 
 platform         |     t(ns)    | power(W)| energy/step(nJ)| notes
