@@ -36,7 +36,7 @@ For the Asian option, we have:
 where T is the time period (between now and the option expiration date) , S is the stock price at the expiration date, and K is the strike price.
 
 [option]: https://en.wikipedia.org/wiki/Option_style
-[exotic option]: https://en.wikipedia.org/wiki/Exotic_option
+[exotic options]: https://en.wikipedia.org/wiki/Exotic_option
 
 ### The Monte Carlo Method
 The [Monte Carlo Method][Monte Carlo] is one of the most widely used approaches to simulate stochastic processes, like a stock price modeled with Black-Scholes. This is especially true for exotic options, which are usually not solvable analytically. In this project, the Monte Carlo Method is used to estimate the payoff price of a given instrument using the Black Scholes model.
