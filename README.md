@@ -1,11 +1,11 @@
-Monte Carlo Methods applied to the Heston financial market model
+Monte Carlo Methods applied to the Black-Scholes financial market model
 ============
 
 ## Overview
-This project implements a Monte Carlo simulation of the Heston financial model, using both the European and the Asian options. It contains an OpenCL C++ kernel, to be mapped to FPGA via SDAccel. It provides much better energy-per-operation than a GPU implementation, at a comparable performance level.
+This project implements a Monte Carlo simulation of the Black-Scholes financial model, using both the European and the Asian options. It contains an OpenCL C++ kernel, to be mapped to FPGA via SDAccel. It provides much better energy-per-operation than a GPU implementation, at a comparable performance level.
 
-### Heston Model
-The [Heston model][Heston Model], which was first published by Fischer Black and Myron Scholes in 1973, is a famous and basic mathematical model describing the behaviour of investment instruments in financial markets. This model focuses on comparing the Return On Investment for one risky asset, whose price is subject to [geometric Brownian motion][geometric Brownian motion] and one riskless asset with a fixed interest rate.
+### Black-Scholes Model
+The [Black-Scholes model][Black-Scholes Model], which was first published by Fischer Black and Myron Scholes in 1973, is a famous and basic mathematical model describing the behaviour of investment instruments in financial markets. This model focuses on comparing the Return On Investment for one risky asset, whose price is subject to [geometric Brownian motion][geometric Brownian motion] and one riskless asset with a fixed interest rate.
 
 The geometric Brownian behaviour of the price of the risky asset is described by this stochastic differential equation:
 
@@ -39,7 +39,7 @@ where T is the time period (between now and the option expiration date) , S is t
 [exotic option]: https://en.wikipedia.org/wiki/Exotic_option
 
 ### The Monte Carlo Method
-The [Monte Carlo Method][Monte Carlo] is one of the most widely used approaches to simulate stochastic processes, like a stock price modeled with Heston. This is especially true for exotic options, which are usually not solvable analytically. In this project, the Monte Carlo Method is used to estimate the payoff price of a given instrument using the Black Scholes model.
+The [Monte Carlo Method][Monte Carlo] is one of the most widely used approaches to simulate stochastic processes, like a stock price modeled with Black-Scholes. This is especially true for exotic options, which are usually not solvable analytically. In this project, the Monte Carlo Method is used to estimate the payoff price of a given instrument using the Black Scholes model.
 
 The given time period has to be partitioned into M steps according to the style of the option. M=1 for a European option, since the payoff price is independent of the price before the expiration date. At each time point of a Monte Carlo simulation of this kind, the stock price is determined by the stock price at the previous time point and by a normally distributed random number. The expectation of the payoff price can thus be estimated by N parallel independent simulations.
 
@@ -263,7 +263,7 @@ Quadro K4200     |      0.204   |  105    |     21.42 |
 GTX Titan        |      0.0389  |  375    |     14.61 | extrapolated
 Virtex 7 sin/cos |      0.315   |  24.4   |     7.69  |
 
-[Heston Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
+[Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion
 [Wiener process]: https://en.wikipedia.org/wiki/Wiener_process
 [Call options]: https://en.wikipedia.org/wiki/Call_option
