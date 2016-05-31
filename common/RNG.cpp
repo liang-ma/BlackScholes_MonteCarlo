@@ -92,7 +92,7 @@ void RNG::init_array(RNG* rng, uint* seed, const int size)
 
 void RNG::extract_number(uint *num1, uint *num2)
 {
-#pragma HLS PIPELINE
+#pragma HLS INLINE
 	int id1=increase(1), idm=increase(RNG_MH), idm1=increase(RNG_MHI);
 
  	uint x = this->seed,x1=this->mt_o[this->index],x2=this->mt_e[id1],
