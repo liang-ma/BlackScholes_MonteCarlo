@@ -150,8 +150,8 @@ Parameter |  information
 :-------- | :---
 NUM_STEPS    | number of time steps (M)
 NUM_RNGS | number of RNGs running in parallel, proportional to the area cost
-NUM_SIMGROUPS  | number of simulation groups (each with ![$NUM\_RNG \cdot NUM\_SIMS$] simulations) running in pipeline, proportional to the execution time
-NUM_SIMS   | number of simulations running in parallel for a given RNG (512 optimizes BRAM usage)
+NUM_SIMGROUPS  | number of simulation groups (each with ![$NUM\_RNG \cdot NUM\_SIMS$] simulations) running in pipeline, proportional to the execution time (512 optimizes BRAM usage)
+NUM_SIMS   | number of simulations running in pipeline
 
 The area cost is proposrtional to NUM_RNG.
 ### How to run an example
