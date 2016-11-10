@@ -74,14 +74,16 @@ void blackScholes::sampleSIM(RNG* mt_rng, data_t* pCall, data_t *pPut)
 			loop_parallel:for(int i=0;i<NUM_RNGS;i++) {
 #pragma HLS UNROLL
 				mt_rng[i].BOX_MULLER(&num1[i][k],&num2[i][k],ratio4,ratio3);
+				float payoff1 = expf(num1[i][k])-1;
+				float payoff2 = expf(num2[i][k])-1;
 				if(num1[i][k]>0)
-					pCall1[i][k]+=expf(num1[i][k])-1;
+					pCall1[i][k]+= payoff1;
 				else
-					pPut1[i][k]+=1-expf(num1[i][k]);
+					pPut1[i][k]-=payoff1;
 				if(num2[i][k]>0)
-					pCall2[i][k]+=expf(num2[i][k])-1;
+					pCall2[i][k]+=payoff2;
 				else
-					pPut2[i][k]+=1-expf(num2[i][k]);
+					pPut2[i][k]-=payoff2;
 			}
 		}
 	}
