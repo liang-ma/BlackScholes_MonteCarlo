@@ -262,6 +262,7 @@ GTX 960          |      0.163   |  120    |     19.56 |
 Quadro K4200     |      0.204   |  105    |     21.42 |
 GTX Titan        |      0.0389  |  375    |     14.61 | extrapolated
 Virtex 7 sin/cos |      0.315   |  24.4   |     7.69  |
+Virtex 7 sin/cos |      0.0958  |  21.2   |     1.94  |
 
 [Black-Scholes Model]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
 [geometric Brownian motion]: https://en.wikipedia.org/wiki/Geometric_Brownian_motion
