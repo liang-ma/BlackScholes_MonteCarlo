@@ -27,7 +27,7 @@
 #include "../common/blackScholes.h"
 
 
-
+extern "C"
 void blackAsian(data_t *call, data_t *put,   // call price and put price
 		data_t timeT,				// time period of options
 		data_t freeRate,			// interest rate of the riskless asset
