@@ -27,7 +27,7 @@
 #include "../common/defTypes.h"
 #include "../common/stockData.h"
 
-
+extern "C"
 void blackEuro(data_t *pCall, data_t *pPut,   // call price and put price
 		data_t timeT,				// time period of options
 		data_t freeRate,			// interest rate of the riskless asset
