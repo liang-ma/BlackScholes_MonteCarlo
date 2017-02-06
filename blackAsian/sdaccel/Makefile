@@ -78,7 +78,7 @@ else ifeq (${SDA_FLOW},hw)
     CLCC_OPT += -t hw
 endif
 
-HOST_ARGS = -s 100 -k 110 -r 0.05 -v 0.2 -t 1 -c 6.04 -p 10.65 -a ${XCLBIN} -n ${KERNEL_NAME}
+HOST_ARGS =-s 100 -k 105 -r 0.1 -v 0.15 -t 10 -c 24.95 -p 0.283 -a ${XCLBIN} -n ${KERNEL_NAME}
 
 include ~/WORKSPACE/SDAccel/common.mk
 run: host xbin
