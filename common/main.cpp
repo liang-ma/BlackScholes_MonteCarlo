@@ -87,9 +87,7 @@ int main(int argc, char** argv)
 {
 	int opt;
 	double callR=-1, putR=-1;
-	bool flaga=false,flags=false,flagk=false,
-		flagr=false,flagv=false,flagt=false,
-		flagc=false,flagp=false,flagn=false;
+	bool flagc=false,flagp=false,flagn=false;
 	while((opt=getopt(argc,argv,"n:a:s:k:r:v:t:c:p:"))!=-1){
 		switch(opt){
 			case 'n':
@@ -98,27 +96,21 @@ int main(int argc, char** argv)
 				break;
 			case 'a':
 				Params::binary_name=optarg;
-				flaga=true;
 				break;
 			case 's':
 				Params::S0=atof(optarg);
-				flags=true;
 				break;
 			case 'k':
 				Params::K=atof(optarg);
-				flagk=true;
 				break;
 			case 'r':
 				Params::rate=atof(optarg);
-				flagr=true;
 				break;
 			case 'v':
 				Params::volatility=atof(optarg);
-				flagv=true;
 				break;
 			case 't':
 				Params::T=atof(optarg);
-				flagt=true;
 				break;
 			case 'c':
 				callR=atof(optarg);
